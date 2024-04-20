@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -51,7 +52,7 @@ export async function login(req, res, next) {
 
     const token = jwt.sign(
       { email: user.email, userId: user._id.toString() },
-      "loginPracticeScretKey",
+      process.env.JWT_SECRET_KEY,
       { expiresIn: "1h" }
     );
     res.status(200).json({ token, userId: user._id.toString() });
