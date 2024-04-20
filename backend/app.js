@@ -7,8 +7,6 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/auth", authRoutes);
-
 // 에러 처리
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
@@ -27,6 +25,8 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
+
+app.use("/auth", authRoutes);
 
 mongoose
   .connect(
