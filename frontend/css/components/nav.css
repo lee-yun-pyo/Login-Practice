@@ -27,6 +27,7 @@
     font-size: 16px;
     padding: 5px 10px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .nav-signBtn:hover {

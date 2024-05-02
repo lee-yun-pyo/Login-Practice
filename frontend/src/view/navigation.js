@@ -1,3 +1,5 @@
+import { changeUrl } from "../routes";
+
 const $navigation = document.createElement("nav");
 $navigation.classList.add("nav");
 
@@ -18,10 +20,10 @@ function ButtonBox() {
   $userName.classList.add("nav-username");
   $userName.innerText = isSignin ? "예시유저명" : ""; // Todo: 로그인 유저명 가져오기
 
-  const $signBtn = document.createElement("a");
+  const $signBtn = document.createElement("span");
   $signBtn.classList.add("nav-signBtn");
   $signBtn.innerText = isSignin ? "로그아웃" : "로그인";
-  $signBtn.setAttribute("href", "/frontend/login"); // Todo: 로그인 상태 분기처리
+  $signBtn.addEventListener("click", () => changeUrl("/login"));
 
   isSignin && $box.appendChild($userName);
   $box.appendChild($signBtn);
