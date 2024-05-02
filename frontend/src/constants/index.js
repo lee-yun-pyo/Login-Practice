@@ -5,3 +5,9 @@ export const API_PATH = {
   signup: () => `${API_PATH.auth()}/signup`,
   login: () => `${API_PATH.auth()}/login`,
 };
+
+export const ROUTES = {
+  HOME: "/frontend/",
+  SIGNUP: "/signup",
+  LOGIN: "/login",
+};

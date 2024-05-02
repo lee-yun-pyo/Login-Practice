@@ -1,4 +1,5 @@
 import { changeUrl } from "../routes";
+import { ROUTES } from "../constants";
 
 const $navigation = document.createElement("nav");
 $navigation.classList.add("nav");
@@ -7,6 +8,8 @@ function Title() {
   const $title = document.createElement("h1");
   $title.classList.add("nav-title");
   $title.innerText = "Login Practice";
+
+  $title.addEventListener("click", () => changeUrl(ROUTES.HOME));
 
   return $title;
 }
@@ -23,7 +26,7 @@ function ButtonBox() {
   const $signBtn = document.createElement("span");
   $signBtn.classList.add("nav-signBtn");
   $signBtn.innerText = isSignin ? "로그아웃" : "로그인";
-  $signBtn.addEventListener("click", () => changeUrl("/login"));
+  $signBtn.addEventListener("click", () => changeUrl(ROUTES.LOGIN));
 
   isSignin && $box.appendChild($userName);
   $box.appendChild($signBtn);

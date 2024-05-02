@@ -1,3 +1,6 @@
+import { changeUrl } from "../routes";
+import { ROUTES } from "../constants";
+
 const $chattingDiv = document.createElement("div");
 $chattingDiv.classList.add("chatting-container");
 
@@ -32,8 +35,13 @@ function MessageInput() {
   const $loginBtnBox = document.createElement("div");
   $loginBtnBox.classList.add("chatting-loginBtnBox");
   $loginBtnBox.innerHTML = `
-    <span>채팅하기 위해 <a href="/frontend/login">로그인</a> 해주세요.<span>
+    <span>채팅하기 위해 <strong>로그인</strong> 해주세요.<span>
   `;
+
+  $loginBtnBox.addEventListener("click", ({ target }) => {
+    if (!target.matches("strong")) return;
+    changeUrl(ROUTES.LOGIN);
+  });
 
   isLogin ? $box.append($input, $button) : $box.append($loginBtnBox);
 

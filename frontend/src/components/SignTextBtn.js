@@ -1,4 +1,5 @@
 import { changeUrl } from "../routes";
+import { ROUTES } from "../constants";
 
 /**
  * 회원가입 또는 로그인 페이지 텍스트 버튼
@@ -14,7 +15,7 @@ export function SignTextBtn(isLoginPage) {
     : "계정이 있다면 로그인";
 
   $span.addEventListener("click", () => {
-    changeUrl(isLoginPage ? "/signup" : "/login");
+    changeUrl(isLoginPage ? ROUTES.SIGNUP : ROUTES.LOGIN);
   });
 
   return $span;
