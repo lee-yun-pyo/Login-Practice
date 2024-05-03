@@ -12,7 +12,9 @@ export const routes = {
 };
 
 export function changeUrl(requestedUrl) {
-  history.pushState(null, null, requestedUrl);
+  if (requestedUrl === window.location.pathname)
+    history.replaceState(null, "", requestedUrl);
+  else history.pushState(null, "", requestedUrl);
 
   // 노드 교체
   const oldChild = $main.children[0];
