@@ -7,14 +7,6 @@ const app = express();
 
 app.use(express.json());
 
-// 에러 처리
-app.use((error, req, res, next) => {
-  const status = error.statusCode || 500;
-  const message = error.message;
-  const data = error.data;
-  res.status(status).json({ message, data });
-});
-
 // CORS Error 방지
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -27,6 +19,14 @@ app.use((req, res, next) => {
 });
 
 app.use("/auth", authRoutes);
+
+// 에러 처리
+app.use((error, req, res, next) => {
+  const status = error.statusCode || 500;
+  const message = error.message;
+  const data = error.data;
+  res.status(status).json({ message, data });
+});
 
 mongoose
   .connect(
