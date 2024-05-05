@@ -4,9 +4,11 @@ import { SignTitle } from "../components/signTitle";
 import {
   AUTH_IS_EMPTY_EMAIL_MESSAGE,
   AUTH_IS_EMPTY_PW_MESSAGE,
+  AUTH_IS_NOT_EMAIL_FORM,
+  emailRegex,
 } from "../constants";
 import { loginHandler } from "../handler/loginHandler";
-import { isEmptyEmail, isEmptyPassword } from "../utils/auth";
+import { isEmptyEmail, isEmptyPassword, isValidEmail } from "../utils/auth";
 
 const $loginDiv = document.createElement("div");
 $loginDiv.classList.add("sign-wrapper");
@@ -45,6 +47,11 @@ function loginFormTag() {
 
     if (isEmptyPassword(password)) {
       handleAlert(AUTH_IS_EMPTY_PW_MESSAGE);
+      return;
+    }
+
+    if (!isValidEmail(email, emailRegex)) {
+      handleAlert(AUTH_IS_NOT_EMAIL_FORM);
       return;
     }
 
