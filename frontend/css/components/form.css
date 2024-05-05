@@ -17,6 +17,7 @@
 .sign-inputText {
     padding: 8px 10px;
     font-size: 18px;
+    outline: none;
 }
 
 .sign-submitBtn {
@@ -33,4 +34,10 @@
 .sign-textBtn:hover {
     text-decoration: underline;
     color: cornflowerblue;
+}
+
+.alert-text {
+    text-align: center;
+    font-size: 14px;
+    color: #FF003E;
 }

@@ -11,3 +11,8 @@ export const ROUTES = {
   SIGNUP: "/signup",
   LOGIN: "/login",
 };
+
+export const AUTH_IS_EMPTY_EMAIL_MESSAGE = "이메일을 입력해 주세요.";
+export const AUTH_IS_EMPTY_PW_MESSAGE = "비밀번호를 입력해 주세요.";
+
+export const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
