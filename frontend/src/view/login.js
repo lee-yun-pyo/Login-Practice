@@ -55,8 +55,6 @@ function loginFormTag() {
       return;
     }
 
-    // Todo: 이메일 형식 유효한 지 확인
-
     handleAlert();
     loginHandler(account);
   });
