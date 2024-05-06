@@ -55,7 +55,9 @@ export async function login(req, res, next) {
       process.env.JWT_SECRET_KEY,
       { expiresIn: "1h" }
     );
-    res.status(200).json({ token, userId: user._id.toString() });
+    res
+      .status(200)
+      .json({ token, userId: user._id.toString(), username: user.name });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
