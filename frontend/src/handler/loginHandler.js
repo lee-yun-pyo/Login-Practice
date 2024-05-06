@@ -1,5 +1,6 @@
 import { handleAlert } from "../components/Alert.js";
-import { API_PATH, STORE_ACTION_TYPES } from "../constants/index.js";
+import { API_PATH } from "../constants/index.js";
+import { login } from "../store/action.js";
 import store from "../store/index.js";
 
 export async function loginHandler(account) {
@@ -21,10 +22,6 @@ export async function loginHandler(account) {
 
   localStorage.setItem("token", token);
   localStorage.setItem("userId", userId);
-  store.dispatch({
-    type: STORE_ACTION_TYPES.LOGIN,
-    isLogin: true,
-    userId,
-    username,
-  });
+
+  store.dispatch(login(userId, username));
 }
