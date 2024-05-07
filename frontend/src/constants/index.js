@@ -4,6 +4,7 @@ export const API_PATH = {
   auth: () => `${BASE_URL}/auth`,
   signup: () => `${API_PATH.auth()}/signup`,
   login: () => `${API_PATH.auth()}/login`,
+  validate: () => `${API_PATH.auth()}/access-token/validate`,
 };
 
 export const ROUTES = {

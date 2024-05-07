@@ -22,6 +22,7 @@ function reducer(state = INIT_STATE, action) {
         ...state,
         isLogin: action.isLogin,
         userId: action.userId,
+        username: action.username,
       };
     default:
       return state;
