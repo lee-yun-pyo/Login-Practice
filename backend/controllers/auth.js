@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import User from "../model/user.js";
+import { AUTHORIZATION } from "../constants/index.js";
 
 export async function signUp(req, res, next) {
   // 에러 처리
@@ -49,15 +50,51 @@ export async function login(req, res, next) {
       error.statusCode = 401;
       throw error;
     }
+    const payload = { email: user.email, userId: user._id.toString() };
+    const accessToken = createAccessToken(payload);
+    const refreshToken = createRefreshToken(payload);
 
-    const token = jwt.sign(
-      { email: user.email, userId: user._id.toString() },
-      process.env.JWT_SECRET_KEY,
-      { expiresIn: "1h" }
-    );
     res
       .status(200)
-      .json({ token, userId: user._id.toString(), username: user.name });
+      .json({ accessToken, userId: user._id.toString(), username: user.name });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+}
+
+function createAccessToken(payload) {
+  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET_KEY, {
+    expiresIn: "1h",
+  });
+}
+
+function createRefreshToken(payload) {
+  return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET_KEY);
+}
+
+export async function authenticateToken(req, res, next) {
+  const authHeader = req.headers[AUTHORIZATION];
+  const accessToken = authHeader && authHeader.split(" ")[1];
+  if (accessToken === null) return res.sendStatus(401);
+
+  try {
+    const { userId } = jwt.verify(
+      accessToken,
+      process.env.ACCESS_TOKEN_SECRET_KEY
+    );
+
+    if (!userId) {
+      const error = new Error("인증 권한이 없습니다.");
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const user = await User.findById(userId);
+
+    res.status(200).json({ username: user.name, userId });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
