@@ -1,4 +1,4 @@
-import { changeUrl } from "../routes/index.js";
+import { navigate } from "../routes/index.js";
 import { handleAlert } from "../components/Alert.js";
 
 import { login } from "../store/action.js";
@@ -27,5 +27,5 @@ export async function loginHandler(account) {
   localStorage.setItem("userId", userId);
 
   store.dispatch(login(userId, username));
-  changeUrl(ROUTES.HOME);
+  navigate(ROUTES.HOME);
 }

@@ -1,4 +1,4 @@
-import { changeUrl } from "../routes";
+import { navigate } from "../routes";
 import { ROUTES } from "../constants";
 
 /**
@@ -15,7 +15,7 @@ export function SignTextBtn(isLoginPage) {
     : "계정이 있다면 로그인";
 
   $span.addEventListener("click", () => {
-    changeUrl(isLoginPage ? ROUTES.SIGNUP : ROUTES.LOGIN);
+    navigate(isLoginPage ? ROUTES.SIGNUP : ROUTES.LOGIN);
   });
 
   return $span;

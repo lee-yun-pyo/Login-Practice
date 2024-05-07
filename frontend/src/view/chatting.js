@@ -1,4 +1,4 @@
-import { changeUrl } from "../routes";
+import { navigate } from "../routes";
 import { ROUTES } from "../constants";
 
 const $chattingDiv = document.createElement("div");
@@ -40,7 +40,7 @@ function MessageInput() {
 
   $loginBtnBox.addEventListener("click", ({ target }) => {
     if (!target.matches("strong")) return;
-    changeUrl(ROUTES.LOGIN);
+    navigate(ROUTES.LOGIN);
   });
 
   isLogin ? $box.append($input, $button) : $box.append($loginBtnBox);

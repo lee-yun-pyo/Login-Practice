@@ -11,7 +11,7 @@ export const routes = {
   [ROUTES.SIGNUP]: SignUp,
 };
 
-export function changeUrl(requestedUrl) {
+export function navigate(requestedUrl) {
   if (requestedUrl === window.location.pathname)
     history.replaceState(null, "", requestedUrl);
   else history.pushState(null, "", requestedUrl);

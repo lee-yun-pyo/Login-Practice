@@ -1,4 +1,4 @@
-import { changeUrl } from "../routes";
+import { navigate } from "../routes";
 import { ROUTES } from "../constants";
 import store from "../store";
 
@@ -10,7 +10,7 @@ function Title() {
   $title.classList.add("nav-title");
   $title.innerText = "Login Practice";
 
-  $title.addEventListener("click", () => changeUrl(ROUTES.HOME));
+  $title.addEventListener("click", () => navigate(ROUTES.HOME));
 
   return $title;
 }
@@ -30,7 +30,7 @@ function ButtonBox() {
     const $signBtn = document.createElement("span");
     $signBtn.classList.add("nav-signBtn");
     $signBtn.innerText = isLogin ? "로그아웃" : "로그인";
-    $signBtn.addEventListener("click", () => changeUrl(ROUTES.LOGIN));
+    $signBtn.addEventListener("click", () => navigate(ROUTES.LOGIN));
 
     isLogin && $box.appendChild($userName);
     $box.appendChild($signBtn);
