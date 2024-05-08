@@ -1,6 +1,7 @@
 import { navigate } from "../routes";
 import { ROUTES } from "../constants";
 import store from "../store";
+import { logoutHandler } from "../handler/logoutHandler";
 
 const $navigation = document.createElement("nav");
 $navigation.classList.add("nav");
@@ -30,7 +31,9 @@ function ButtonBox() {
     const $signBtn = document.createElement("span");
     $signBtn.classList.add("nav-signBtn");
     $signBtn.innerText = isLogin ? "로그아웃" : "로그인";
-    $signBtn.addEventListener("click", () => navigate(ROUTES.LOGIN));
+    $signBtn.addEventListener("click", () =>
+      isLogin ? logoutHandler() : navigate(ROUTES.LOGIN)
+    );
 
     isLogin && $box.appendChild($userName);
     $box.appendChild($signBtn);

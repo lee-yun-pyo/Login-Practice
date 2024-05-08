@@ -24,6 +24,8 @@ function reducer(state = INIT_STATE, action) {
         userId: action.userId,
         username: action.username,
       };
+    case STORE_ACTION_TYPES.LOGOUT:
+      return INIT_STATE;
     default:
       return state;
   }
