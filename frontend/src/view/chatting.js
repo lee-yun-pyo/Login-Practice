@@ -1,5 +1,7 @@
-import { navigate } from "../routes";
-import { ROUTES } from "../constants";
+import store from "../store";
+
+import { ChatTextInput } from "../components/ChatTextInput";
+import { ChatLoginBtnBox } from "../components/ChatLoginBtnBox";
 
 const $chattingDiv = document.createElement("div");
 $chattingDiv.classList.add("chatting-container");
@@ -17,43 +19,33 @@ function Board() {
 }
 
 function MessageInput() {
-  const isLogin = false; // Todo: 로그인 상태 처리
-
   const $box = document.createElement("div");
   $box.classList.add("chatting-inputBox");
 
-  const $input = document.createElement("input");
-  $input.setAttribute("type", "text");
-  $input.setAttribute("placeholder", "내용을 입력하세요");
-  $input.classList.add("messageInput-input");
+  const renderMessageInput = () => {
+    $box.innerHTML = "";
+    const { isLogin } = store.getState();
 
-  const $button = document.createElement("input");
-  $button.setAttribute("type", "submit");
-  $button.setAttribute("value", "전송");
-  $button.classList.add("messageInput-button");
+    isLogin
+      ? $box.appendChild(ChatTextInput())
+      : $box.append(ChatLoginBtnBox());
+  };
 
-  const $loginBtnBox = document.createElement("div");
-  $loginBtnBox.classList.add("chatting-loginBtnBox");
-  $loginBtnBox.innerHTML = `
-    <span>채팅하기 위해 <strong>로그인</strong> 해주세요.<span>
-  `;
+  renderMessageInput();
 
-  $loginBtnBox.addEventListener("click", ({ target }) => {
-    if (!target.matches("strong")) return;
-    navigate(ROUTES.LOGIN);
-  });
-
-  isLogin ? $box.append($input, $button) : $box.append($loginBtnBox);
+  store.subscribe(renderMessageInput);
 
   return $box;
 }
 
 function render() {
   $chattingDiv.appendChild(Title());
+
   const $chatBox = document.createElement("div");
   $chatBox.classList.add("chatting-box");
   $chatBox.appendChild(Board());
   $chatBox.appendChild(MessageInput());
+
   $chattingDiv.appendChild($chatBox);
 }
 
