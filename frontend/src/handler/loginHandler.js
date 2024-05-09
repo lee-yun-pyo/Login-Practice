@@ -15,13 +15,12 @@ export async function loginHandler(account) {
     body: JSON.stringify(account),
   });
 
+  const { accessToken, userId, username, message } = await response.json();
+
   if (!response.ok) {
-    const { message } = await response.json();
     handleAlert(message);
     return;
   }
-
-  const { accessToken, userId, username } = await response.json();
 
   localStorage.setItem("accessToken", accessToken);
   localStorage.setItem("userId", userId);

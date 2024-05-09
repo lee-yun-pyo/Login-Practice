@@ -4,7 +4,11 @@ import $main from "./view/main.js";
 import store from "./store/index.js";
 import { initializeLoginStatus } from "./store/action.js";
 
-import { API_PATH } from "./constants/index.js";
+import { API_PATH, ROUTES } from "./constants/index.js";
+import { CommonError } from "./utils/CommonError.js";
+import { logoutHandler } from "./handler/logoutHandler.js";
+import { navigate } from "./routes/index.js";
+import { handleAlert } from "./components/Alert.js";
 
 const $app = document.getElementById("app");
 
@@ -26,15 +30,24 @@ async function loadedHandler() {
       },
     });
 
-    const { username, userId, message, statusCode } = await response.json();
+    const { username, userId, message } = await response.json();
 
     if (!response.ok) {
-      throw new Error(message);
+      throw new CommonError(message, response.status);
     }
 
     store.dispatch(initializeLoginStatus(username, userId));
   } catch (error) {
-    console.error(error);
+    if (error instanceof CommonError) {
+      const { message, statusCode } = error;
+      if (statusCode === 401) {
+        logoutHandler();
+        navigate(ROUTES.LOGIN);
+        handleAlert(message);
+      }
+    } else {
+      throw new Error(String(error));
+    }
   }
 }
 
