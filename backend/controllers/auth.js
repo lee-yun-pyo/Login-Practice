@@ -78,7 +78,11 @@ function createRefreshToken(payload) {
 export async function authenticateToken(req, res, next) {
   const authHeader = req.headers[AUTHORIZATION];
   const accessToken = authHeader && authHeader.split(" ")[1];
-  if (accessToken === null) return res.sendStatus(401);
+  if (accessToken === null) {
+    const error = new Error("로그인 세션이 만료되었습니다.");
+    error.statusCode = 401;
+    throw error;
+  }
 
   try {
     const { userId } = jwt.verify(
@@ -96,6 +100,10 @@ export async function authenticateToken(req, res, next) {
 
     res.status(200).json({ username: user.name, userId });
   } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      error.statusCode = 401;
+      error.message = "로그인 세션이 만료되었습니다.";
+    }
     if (!error.statusCode) {
       error.statusCode = 500;
     }
