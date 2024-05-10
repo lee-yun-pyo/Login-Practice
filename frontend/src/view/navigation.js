@@ -4,7 +4,7 @@ import store from "../store";
 import { logoutHandler } from "../handler/logoutHandler";
 
 const $navigation = document.createElement("nav");
-$navigation.classList.add("nav");
+$navigation.classList.add("nav-container");
 
 function Title() {
   const $title = document.createElement("h1");
@@ -22,11 +22,11 @@ function ButtonBox() {
 
   const renderButtonBox = () => {
     $box.innerHTML = "";
-    const { isLogin, username } = store.getState();
+    const { isLogin, username, isLoading } = store.getState();
 
     const $userName = document.createElement("span");
     $userName.classList.add("nav-username");
-    $userName.innerText = isLogin ? username : "";
+    $userName.innerText = isLogin ? `${username}님!` : "";
 
     const $signBtn = document.createElement("span");
     $signBtn.classList.add("nav-signBtn");
@@ -35,8 +35,8 @@ function ButtonBox() {
       isLogin ? logoutHandler() : navigate(ROUTES.LOGIN)
     );
 
-    isLogin && $box.appendChild($userName);
-    $box.appendChild($signBtn);
+    !isLoading && isLogin && $box.appendChild($userName);
+    !isLoading && $box.appendChild($signBtn);
   };
 
   renderButtonBox();
@@ -47,8 +47,13 @@ function ButtonBox() {
 }
 
 function render() {
-  $navigation.appendChild(Title());
-  $navigation.appendChild(ButtonBox());
+  const $wrapper = document.createElement("div");
+  $wrapper.classList.add("nav-wrapper");
+
+  $wrapper.appendChild(Title());
+  $wrapper.appendChild(ButtonBox());
+
+  $navigation.appendChild($wrapper);
 }
 
 render();

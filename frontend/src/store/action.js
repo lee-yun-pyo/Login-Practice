@@ -5,9 +5,18 @@ export function login(userId, username) {
 }
 
 export function initializeLoginStatus(username, userId) {
-  return { type: STORE_ACTION_TYPES.LOADED, isLogin: true, userId, username };
+  return {
+    type: STORE_ACTION_TYPES.INIT_LOADED,
+    isLogin: true,
+    userId,
+    username,
+  };
 }
 
 export function logout() {
   return { type: STORE_ACTION_TYPES.LOGOUT };
+}
+
+export function loading() {
+  return { type: STORE_ACTION_TYPES.LOADING };
 }

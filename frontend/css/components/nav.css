@@ -1,11 +1,20 @@
-.nav {
+.nav-container {
     width: 100%;
+    height: 50px;
     background-color: antiquewhite;
-    padding: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-wrapper {
+    width: 100%;
+    max-width: 1024px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
 }
 
 .nav-title {
@@ -22,6 +31,7 @@
 
 .nav-username {
     font-size: 16px;
+    font-weight: 600;
 }
 
 .nav-signBtn {
