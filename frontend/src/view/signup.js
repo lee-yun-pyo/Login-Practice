@@ -1,3 +1,6 @@
+import { ALERT_MESSAGE, emailRegex } from "../constants";
+import * as authFunc from "../utils/auth";
+
 import { SignTextBtn } from "../components/SignTextBtn";
 import { SignTitle } from "../components/signTitle";
 
@@ -9,38 +12,93 @@ function signupFormTag() {
   $form.classList.add("sign-form");
   $form.innerHTML = ` 
         <input
+          id="email-input"
           class="sign-inputText"
           type="text"
-          required
           placeholder="example@email.com"
         />
         <input
+          id="name-input"
           class="sign-inputText"
           type="text"
-          required
           placeholder="이름"
         />
         <input
+          id="pw-input"
           class="sign-inputText"
           type="password"
-          required
           placeholder="비밀번호"
           autocomplete="off"
         />
         <input
+          id="pwConfirm-input"
           class="sign-inputText"
           type="password"
-          required
           placeholder="비밀번호 확인"
           autocomplete="off"
         />
         <input class="sign-submitBtn" type="submit" value="회원가입" />
-      `;
+  `;
+
+  const $emailInput = $form.querySelector("#email-input"),
+    $nameInput = $form.querySelector("#name-input"),
+    $pwInput = $form.querySelector("#pw-input"),
+    $pwConfirmInput = $form.querySelector("#pwConfirm-input");
+
+  handleAlert();
+  $form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const account = {
+      email: $emailInput.value,
+      name: $nameInput.value,
+      password: $pwInput.value,
+      passwordConfirm: $pwConfirmInput.value,
+    };
+    const { email, name, password, passwordConfirm } = account;
+
+    if (authFunc.isEmptyEmail(email)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_EMAIL);
+      return;
+    }
+
+    if (!authFunc.isValidEmail(email, emailRegex)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_NOT_EMAIL_FORM);
+      return;
+    }
+
+    if (authFunc.isEmptyName(name)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_NAME);
+      return;
+    }
+
+    if (authFunc.isEmptyPassword(password)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW);
+      return;
+    }
+
+    if (authFunc.isEmptyPasswordConfirm(passwordConfirm)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW_CONFIRM);
+      return;
+    }
+
+    handleAlert();
+  });
+
   return $form;
+}
+
+// 경고 메시지 요소 생성
+const $alertText = document.createElement("p");
+$alertText.classList.add("alert-text");
+
+function handleAlert(message = "") {
+  $alertText.style.display = message !== "" ? "block" : "none";
+  $alertText.innerText = message;
 }
 
 $signUpDiv.appendChild(SignTitle(false));
 $signUpDiv.appendChild(signupFormTag());
+$signUpDiv.appendChild($alertText);
 $signUpDiv.appendChild(SignTextBtn(false));
 
 export default $signUpDiv;

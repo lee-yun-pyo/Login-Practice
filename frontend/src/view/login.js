@@ -1,14 +1,10 @@
-import { $alertText, handleAlert } from "../components/Alert";
+import { ALERT_MESSAGE, emailRegex } from "../constants";
+import * as authFunc from "../utils/auth";
+
+import { loginHandler } from "../handler/loginHandler";
+
 import { SignTextBtn } from "../components/SignTextBtn";
 import { SignTitle } from "../components/signTitle";
-import {
-  AUTH_IS_EMPTY_EMAIL_MESSAGE,
-  AUTH_IS_EMPTY_PW_MESSAGE,
-  AUTH_IS_NOT_EMAIL_FORM,
-  emailRegex,
-} from "../constants";
-import { loginHandler } from "../handler/loginHandler";
-import { isEmptyEmail, isEmptyPassword, isValidEmail } from "../utils/auth";
 
 const $loginDiv = document.createElement("div");
 $loginDiv.classList.add("sign-wrapper");
@@ -40,18 +36,18 @@ function loginFormTag() {
     const account = { email: emailInput.value, password: passwordInput.value };
     const { email, password } = account;
 
-    if (isEmptyEmail(email)) {
-      handleAlert(AUTH_IS_EMPTY_EMAIL_MESSAGE);
+    if (authFunc.isEmptyEmail(email)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_EMAIL);
       return;
     }
 
-    if (isEmptyPassword(password)) {
-      handleAlert(AUTH_IS_EMPTY_PW_MESSAGE);
+    if (authFunc.isEmptyPassword(password)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW);
       return;
     }
 
-    if (!isValidEmail(email, emailRegex)) {
-      handleAlert(AUTH_IS_NOT_EMAIL_FORM);
+    if (!authFunc.isValidEmail(email, emailRegex)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_NOT_EMAIL_FORM);
       return;
     }
 
@@ -60,6 +56,15 @@ function loginFormTag() {
   });
 
   return $form;
+}
+
+// 경고 메시지 요소 생성
+const $alertText = document.createElement("p");
+$alertText.classList.add("alert-text");
+
+function handleAlert(message = "") {
+  $alertText.style.display = message !== "" ? "block" : "none";
+  $alertText.innerText = message;
 }
 
 $loginDiv.appendChild(SignTitle(true));
