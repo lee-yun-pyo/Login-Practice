@@ -1,10 +1,10 @@
 import { navigate } from "../routes/index.js";
 import { handleAlert } from "../components/Alert.js";
 
-import { login } from "../store/action.js";
+import { ACTIONS } from "../store/action.js";
 import store from "../store/index.js";
 
-import { API_PATH, ROUTES } from "../constants/index.js";
+import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants/index.js";
 
 export async function loginHandler(account) {
   const response = await fetch(API_PATH.login(), {
@@ -22,9 +22,9 @@ export async function loginHandler(account) {
     return;
   }
 
-  localStorage.setItem("accessToken", accessToken);
+  localStorage.setItem(ACCESS_TOKEN, accessToken);
   localStorage.setItem("userId", userId);
 
-  store.dispatch(login(userId, username));
+  store.dispatch(ACTIONS.login(userId, username));
   navigate(ROUTES.HOME);
 }

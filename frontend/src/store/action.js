@@ -1,22 +1,18 @@
-import { STORE_ACTION_TYPES } from "../constants";
+import { STORE_ACTION_TYPES as action_type } from "../constants";
 
-export function login(userId, username) {
-  return { type: STORE_ACTION_TYPES.LOGIN, isLogin: true, userId, username };
-}
-
-export function initializeLoginStatus(username, userId) {
-  return {
-    type: STORE_ACTION_TYPES.INIT_LOADED,
+export const ACTIONS = {
+  login: (userId, username) => ({
+    type: action_type.LOGIN,
     isLogin: true,
     userId,
     username,
-  };
-}
-
-export function logout() {
-  return { type: STORE_ACTION_TYPES.LOGOUT };
-}
-
-export function loading() {
-  return { type: STORE_ACTION_TYPES.LOADING };
-}
+  }),
+  logout: () => ({ type: action_type.LOGOUT }),
+  loading: () => ({ type: action_type.LOADING }),
+  initializeLoginStatus: (username, userId) => ({
+    type: action_type.INIT_LOADED,
+    isLogin: true,
+    userId,
+    username,
+  }),
+};

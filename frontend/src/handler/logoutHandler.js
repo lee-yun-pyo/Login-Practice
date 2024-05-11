@@ -1,8 +1,10 @@
 import store from "../store";
-import { logout } from "../store/action";
+import { ACTIONS } from "../store/action";
+
+import { ACCESS_TOKEN } from "../constants";
 
 export function logoutHandler() {
-  localStorage.removeItem("accessToken");
+  localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem("userId");
-  store.dispatch(logout());
+  store.dispatch(ACTIONS.logout());
 }

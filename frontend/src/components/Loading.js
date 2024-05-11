@@ -1,8 +1,11 @@
-export function Loading() {
-  const $container = document.createElement("div");
-  $container.style.display = "none";
-  $container.classList.add("loadingUI");
-  $container.innerText = "콘텐츠 불러오는 중...";
+const $loading = document.createElement("div");
 
-  return $container;
+function render() {
+  $loading.style.display = "none";
+  $loading.classList.add("loadingUI");
+  $loading.innerText = "콘텐츠 불러오는 중...";
 }
+
+render();
+
+export default $loading;

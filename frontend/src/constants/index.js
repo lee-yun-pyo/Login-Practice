@@ -25,3 +25,5 @@ export const STORE_ACTION_TYPES = {
   LOGOUT: "LOGOUT",
   LOADING: "LOADING",
 };
+
+export const ACCESS_TOKEN = "accessToken";
