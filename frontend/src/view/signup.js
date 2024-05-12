@@ -52,9 +52,9 @@ function signupFormTag() {
       email: $emailInput.value,
       name: $nameInput.value,
       password: $pwInput.value,
-      passwordConfirm: $pwConfirmInput.value,
     };
-    const { email, name, password, passwordConfirm } = account;
+    const { email, name, password } = account;
+    const passwordConfirm = $pwConfirmInput.value;
 
     if (authFunc.isEmptyEmail(email)) {
       handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_EMAIL);
@@ -76,8 +76,18 @@ function signupFormTag() {
       return;
     }
 
+    if (authFunc.isInValidPassword(password)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_INVALID_PW_LENGTH);
+      return;
+    }
+
     if (authFunc.isEmptyPasswordConfirm(passwordConfirm)) {
       handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW_CONFIRM);
+      return;
+    }
+
+    if (authFunc.isPasswordInCorrect(password, passwordConfirm)) {
+      handleAlert(ALERT_MESSAGE.AUTH.IS_INCORRECT_PW);
       return;
     }
 

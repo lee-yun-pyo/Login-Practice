@@ -13,6 +13,8 @@ export const ROUTES = {
   LOGIN: "/login",
 };
 
+export const PASSWORD_MIN_LENGTH = 5;
+
 export const ALERT_MESSAGE = {
   AUTH: {
     IS_EMPTY_EMAIL: "이메일을 입력해 주세요.",
@@ -20,6 +22,8 @@ export const ALERT_MESSAGE = {
     IS_EMPTY_PW: "비밀번호를 입력해 주세요.",
     IS_EMPTY_PW_CONFIRM: "비밀번호 확인을 입력해 주세요.",
     IS_NOT_EMAIL_FORM: "이메일 형태로 입력해주세요.",
+    IS_INVALID_PW_LENGTH: `비밀번호 최소 ${PASSWORD_MIN_LENGTH}자 이상 입력해주세요.`,
+    IS_INCORRECT_PW: "비밀번호가 일치하지 않습니다.",
   },
 };
 
