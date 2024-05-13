@@ -5,6 +5,10 @@ import { loginHandler } from "../handler/loginHandler";
 
 import { SignTextBtn } from "../components/SignTextBtn";
 import { SignTitle } from "../components/signTitle";
+import {
+  $loginAlertMessage,
+  handleLoginAlert,
+} from "../components/LoginAlertMessage";
 
 const $loginDiv = document.createElement("div");
 $loginDiv.classList.add("sign-wrapper");
@@ -30,46 +34,37 @@ function loginFormTag() {
   const emailInput = $form.querySelector('input[type="text"]'),
     passwordInput = $form.querySelector('input[type="password"]');
 
-  handleAlert();
+  handleLoginAlert("");
   $form.addEventListener("submit", (event) => {
     event.preventDefault();
     const account = { email: emailInput.value, password: passwordInput.value };
     const { email, password } = account;
 
     if (authFunc.isEmptyEmail(email)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_EMAIL);
+      handleLoginAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_EMAIL);
       return;
     }
 
     if (authFunc.isEmptyPassword(password)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW);
+      handleLoginAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW);
       return;
     }
 
     if (!authFunc.isValidEmail(email, emailRegex)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_NOT_EMAIL_FORM);
+      handleLoginAlert(ALERT_MESSAGE.AUTH.IS_NOT_EMAIL_FORM);
       return;
     }
 
-    handleAlert();
+    handleLoginAlert("");
     loginHandler(account);
   });
 
   return $form;
 }
 
-// 경고 메시지 요소 생성
-const $alertText = document.createElement("p");
-$alertText.classList.add("alert-text");
-
-function handleAlert(message = "") {
-  $alertText.style.display = message !== "" ? "block" : "none";
-  $alertText.innerText = message;
-}
-
 $loginDiv.appendChild(SignTitle(true));
 $loginDiv.appendChild(loginFormTag());
-$loginDiv.appendChild($alertText);
+$loginDiv.appendChild($loginAlertMessage);
 $loginDiv.appendChild(SignTextBtn(true));
 
 export default $loginDiv;
