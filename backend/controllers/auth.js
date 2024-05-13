@@ -17,6 +17,12 @@ export async function signUp(req, res, next) {
   }
   try {
     const { email, name, password } = req.body;
+    const isExistEmail = await User.findOne({ email });
+    if (isExistEmail) {
+      const error = new Error("이메일이 이미 존재합니다");
+      error.statusCode = 409;
+      throw error;
+    }
     const hashedPw = await bcrypt.hash(password, 10); // 해시 작업
     const user = new User({
       email,
@@ -24,7 +30,9 @@ export async function signUp(req, res, next) {
       name,
     });
     const result = await user.save();
-    res.status(201).json({ message: "유저 생성됨!", userId: result._id });
+    res
+      .status(201)
+      .json({ message: "created user successfully", username: result.name });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
