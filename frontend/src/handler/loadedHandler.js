@@ -7,7 +7,7 @@ import { logoutHandler } from "./logoutHandler.js";
 import { navigate } from "../routes/index.js";
 import { CommonError } from "../utils/CommonError.js";
 
-import { handleAlert } from "../components/Alert.js";
+import { handleLoginAlert } from "../components/LoginAlertMessage.js";
 import $loading from "../components/Loading.js";
 import $main from "../view/main.js";
 
@@ -42,7 +42,7 @@ export async function loadedHandler() {
       if (statusCode === 401) {
         logoutHandler();
         navigate(ROUTES.LOGIN);
-        handleAlert(message);
+        handleLoginAlert(message);
         showContentUI();
       }
     } else {

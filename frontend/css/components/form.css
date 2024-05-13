@@ -1,11 +1,18 @@
 .sign-wrapper {
+    width: 300px;
     display: flex;
     flex-direction: column;
     gap: 25px;
     padding: 30px;
-
+    
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 20px;
+}
+
+.sign-box {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .sign-form {

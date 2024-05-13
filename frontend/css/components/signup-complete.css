@@ -1,0 +1,31 @@
+.signup-complete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.signup-complete__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.signup-complete__title {
+    font-size: 20px;
+}
+
+.signup-complete__content {
+    font-size: 14px;
+}
+
+.signup-complete__button {
+    width: 100%;
+    background-color: #6054FF;
+    color: #ffffff;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-weight: 600;
+}

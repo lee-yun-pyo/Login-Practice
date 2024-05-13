@@ -3,9 +3,26 @@ import * as authFunc from "../utils/auth";
 
 import { SignTextBtn } from "../components/SignTextBtn";
 import { SignTitle } from "../components/signTitle";
+import {
+  $signupAlertMessage,
+  handleSignupAlert,
+} from "../components/SignupAlertMessage";
+import { SignupComplete } from "../components/SignupComplete";
 
-const $signUpDiv = document.createElement("div");
-$signUpDiv.classList.add("sign-wrapper");
+import { signUpHandler } from "../handler/signupHandler";
+
+const $signupWrapper = document.createElement("div");
+$signupWrapper.classList.add("sign-wrapper");
+
+const $signUpBox = document.createElement("div");
+$signUpBox.classList.add("sign-box");
+
+function moveToSignupComplete(username) {
+  $signupWrapper.replaceChild(
+    SignupComplete(username),
+    $signupWrapper.childNodes[0]
+  );
+}
 
 function signupFormTag() {
   const $form = document.createElement("form");
@@ -45,8 +62,8 @@ function signupFormTag() {
     $pwInput = $form.querySelector("#pw-input"),
     $pwConfirmInput = $form.querySelector("#pwConfirm-input");
 
-  handleAlert();
-  $form.addEventListener("submit", (event) => {
+  handleSignupAlert("");
+  $form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const account = {
       email: $emailInput.value,
@@ -57,58 +74,53 @@ function signupFormTag() {
     const passwordConfirm = $pwConfirmInput.value;
 
     if (authFunc.isEmptyEmail(email)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_EMAIL);
+      handleSignupAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_EMAIL);
       return;
     }
 
     if (!authFunc.isValidEmail(email, emailRegex)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_NOT_EMAIL_FORM);
+      handleSignupAlert(ALERT_MESSAGE.AUTH.IS_NOT_EMAIL_FORM);
       return;
     }
 
     if (authFunc.isEmptyName(name)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_NAME);
+      handleSignupAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_NAME);
       return;
     }
 
     if (authFunc.isEmptyPassword(password)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW);
+      handleSignupAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW);
       return;
     }
 
     if (authFunc.isInValidPassword(password)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_INVALID_PW_LENGTH);
+      handleSignupAlert(ALERT_MESSAGE.AUTH.IS_INVALID_PW_LENGTH);
       return;
     }
 
     if (authFunc.isEmptyPasswordConfirm(passwordConfirm)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW_CONFIRM);
+      handleSignupAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW_CONFIRM);
       return;
     }
 
     if (authFunc.isPasswordInCorrect(password, passwordConfirm)) {
-      handleAlert(ALERT_MESSAGE.AUTH.IS_INCORRECT_PW);
+      handleSignupAlert(ALERT_MESSAGE.AUTH.IS_INCORRECT_PW);
       return;
     }
 
-    handleAlert();
+    handleSignupAlert("");
+    const username = await signUpHandler(account);
+    if (username) moveToSignupComplete(username);
   });
 
   return $form;
 }
 
-// 경고 메시지 요소 생성
-const $alertText = document.createElement("p");
-$alertText.classList.add("alert-text");
+$signUpBox.appendChild(SignTitle(false));
+$signUpBox.appendChild(signupFormTag());
+$signUpBox.appendChild($signupAlertMessage);
+$signUpBox.appendChild(SignTextBtn(false));
 
-function handleAlert(message = "") {
-  $alertText.style.display = message !== "" ? "block" : "none";
-  $alertText.innerText = message;
-}
+$signupWrapper.appendChild($signUpBox);
 
-$signUpDiv.appendChild(SignTitle(false));
-$signUpDiv.appendChild(signupFormTag());
-$signUpDiv.appendChild($alertText);
-$signUpDiv.appendChild(SignTextBtn(false));
-
-export default $signUpDiv;
+export default $signupWrapper;

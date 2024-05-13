@@ -1,6 +1,6 @@
 @import url(./reset.css);
 @import url(./components/main.css);
-
+@import url(./components/signup-complete.css);
 
 h2 {
     font-size: 35px;
