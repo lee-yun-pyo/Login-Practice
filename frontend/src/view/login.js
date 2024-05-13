@@ -28,35 +28,48 @@ function loginFormTag() {
         placeholder="비밀번호"
         autocomplete="off"
       />
-      <input class="sign-submitBtn" type="submit" value="로그인" />
+      <input id="login-submitBtn" class="sign-submitBtn" type="submit" value="로그인" />
   `;
 
-  const emailInput = $form.querySelector('input[type="text"]'),
-    passwordInput = $form.querySelector('input[type="password"]');
+  const $emailInput = $form.querySelector('input[type="text"]'),
+    $passwordInput = $form.querySelector('input[type="password"]'),
+    $submitButton = $form.querySelector("#login-submitBtn");
 
-  handleLoginAlert("");
+  const handleAlert = (message) => {
+    handleLoginAlert(message);
+    $submitButton.disabled = false;
+  };
+
+  handleAlert("");
   $form.addEventListener("submit", (event) => {
     event.preventDefault();
-    const account = { email: emailInput.value, password: passwordInput.value };
+    $submitButton.disabled = true;
+
+    const account = {
+      email: $emailInput.value,
+      password: $passwordInput.value,
+    };
     const { email, password } = account;
 
     if (authFunc.isEmptyEmail(email)) {
-      handleLoginAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_EMAIL);
+      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_EMAIL);
       return;
     }
 
     if (authFunc.isEmptyPassword(password)) {
-      handleLoginAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW);
+      handleAlert(ALERT_MESSAGE.AUTH.IS_EMPTY_PW);
       return;
     }
 
     if (!authFunc.isValidEmail(email, emailRegex)) {
-      handleLoginAlert(ALERT_MESSAGE.AUTH.IS_NOT_EMAIL_FORM);
+      handleAlert(ALERT_MESSAGE.AUTH.IS_NOT_EMAIL_FORM);
       return;
     }
 
-    handleLoginAlert("");
+    handleAlert("");
+
     loginHandler(account);
+    $submitButton.disabled = false;
   });
 
   return $form;
