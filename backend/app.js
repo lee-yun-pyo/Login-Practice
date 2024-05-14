@@ -1,5 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
+import { createServer } from "http";
+import { Server } from "socket.io";
 
 import authRoutes from "./routes/auth.js";
 
@@ -30,7 +32,22 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://Leeyunpyo:leeyunpyoleeyunpyo@loginproject.5ej1nnl.mongodb.net/?retryWrites=true&w=majority&appName=LoginProject"
+    "mongodb+srv://Leeyunpyo:leeyunpyoleeyunpyo@loginproject.5ej1nnl.mongodb.net/?retryWrites=true&w=majority&appName=LoginProject",
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
-  .then((result) => app.listen(8080))
+  .then((result) => {
+    const httpServer = createServer(app); // Correctly create HTTP server
+
+    const io = new Server(httpServer, {
+      cors: {
+        origin: "http://127.0.0.1:5500",
+      },
+    });
+    httpServer.listen(8080, () => {
+      console.log("http Server 연결");
+    });
+    io.on("connection", (socket) => {
+      console.log("socket 연결됨", socket.id);
+    });
+  })
   .catch((error) => console.log(error));
