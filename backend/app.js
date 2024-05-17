@@ -4,6 +4,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 
 import authRoutes from "./routes/auth.js";
+import commentsRoutes from "./routes/comment.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/comment", commentsRoutes);
 
 // 에러 처리
 app.use((error, req, res, next) => {
@@ -32,8 +34,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://Leeyunpyo:leeyunpyoleeyunpyo@loginproject.5ej1nnl.mongodb.net/?retryWrites=true&w=majority&appName=LoginProject",
-    { useNewUrlParser: true, useUnifiedTopology: true }
+    "mongodb+srv://Leeyunpyo:leeyunpyoleeyunpyo@loginproject.5ej1nnl.mongodb.net/?retryWrites=true&w=majority&appName=LoginProject"
   )
   .then((result) => {
     const httpServer = createServer(app); // Correctly create HTTP server
