@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/auth", authRoutes);
-app.use("/comment", commentsRoutes);
+app.use("/comments", commentsRoutes);
 
 // 에러 처리
 app.use((error, req, res, next) => {

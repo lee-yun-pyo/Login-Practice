@@ -1,11 +1,21 @@
 import express from "express";
 import { body } from "express-validator";
 
-import { uploadComment } from "../controllers/comment.js";
 import { isAuth } from "../middlewares/isAuth.js";
+
+import commentController from "../controllers/comment.js";
 
 const router = express.Router();
 
-router.put("/", isAuth, body("content").trim(), uploadComment);
+// PUT /comments
+router.put(
+  "/",
+  isAuth,
+  body("content").trim(),
+  commentController.uploadComment
+);
+
+// GET /comments?page=${pageNum}
+router.get("/", commentController.getComments);
 
 export default router;
