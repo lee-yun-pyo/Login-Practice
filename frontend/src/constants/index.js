@@ -2,9 +2,12 @@ export const BASE_URL = "http://localhost:8080";
 
 export const API_PATH = {
   auth: () => `${BASE_URL}/auth`,
+  comments: () => `${BASE_URL}/comments`,
   signup: () => `${API_PATH.auth()}/signup`,
   login: () => `${API_PATH.auth()}/login`,
   validate: () => `${API_PATH.auth()}/access-token/validate`,
+  createComment: () => `${API_PATH.comments()}`,
+  getComments: (page) => `${API_PATH.comments()}?page=${page}`,
 };
 
 export const ROUTES = {

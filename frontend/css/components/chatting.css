@@ -16,6 +16,16 @@
 .chatting-board {
     height: 100%;
     width: 100%;
+
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chatting-form {
+    display: flex;
+    align-items: center;
 }
 
 .chatting-inputBox {
@@ -27,7 +37,7 @@
 .messageInput-input {
     width: 100%;
     padding: 13px 15px;
-    font-size: 16px;
+    font-size: 18px;
     border: 2px solid rgba(0, 0, 0, 0.1);
     outline: none;
     border-radius: 10px;
@@ -40,7 +50,7 @@
     right: 0px;
     border: none;
     padding: 13px 10px;
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -60,4 +70,43 @@
 .chatting-loginBtnBox span strong {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.comment-wrapper {
+    width: 100%;
+
+    display: flex;
+}
+
+.comment-wrpper__self {
+    justify-content: flex-end;
+}
+
+.comment-wrpper__other {
+    justify-content: flex-start;
+}
+
+.comment-box {
+    width: fit-content;
+
+    padding: 12px 15px;
+    border-radius: 811px;
+}
+
+.comment-box p {
+    font-size: 18px;
+}
+
+.comment-box__self {
+    background-color: antiquewhite;
+    border-bottom-right-radius: 0;
+}
+
+.comment-box__other {    
+    background-color: rgb(210, 214, 216);
+    border-bottom-left-radius: 0;
+}
+
+.disabled {
+    background-color: rgba(0, 0, 0, 0.1);
 }

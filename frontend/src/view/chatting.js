@@ -1,7 +1,8 @@
 import store from "../store";
 
-import { ChatTextInput } from "../components/ChatTextInput";
+import $chatForm from "../components/ChatForm";
 import { ChatLoginBtnBox } from "../components/ChatLoginBtnBox";
+import $board from "../components/Board";
 
 const $chattingDiv = document.createElement("div");
 $chattingDiv.classList.add("chatting-container");
@@ -12,12 +13,6 @@ function Title() {
   return $title;
 }
 
-function Board() {
-  const $board = document.createElement("div");
-  $board.classList.add("chatting-board");
-  return $board;
-}
-
 function MessageInput() {
   const $box = document.createElement("div");
   $box.classList.add("chatting-inputBox");
@@ -26,9 +21,7 @@ function MessageInput() {
     $box.innerHTML = "";
     const { isLogin } = store.getState();
 
-    isLogin
-      ? $box.appendChild(ChatTextInput())
-      : $box.append(ChatLoginBtnBox());
+    isLogin ? $box.appendChild($chatForm) : $box.append(ChatLoginBtnBox());
   };
 
   renderMessageInput();
@@ -43,7 +36,7 @@ function render() {
 
   const $chatBox = document.createElement("div");
   $chatBox.classList.add("chatting-box");
-  $chatBox.appendChild(Board());
+  $chatBox.appendChild($board);
   $chatBox.appendChild(MessageInput());
 
   $chattingDiv.appendChild($chatBox);
