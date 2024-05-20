@@ -18,5 +18,11 @@ export function navigate(requestedUrl) {
 
   // 노드 교체
   const oldChild = $main.children[0];
-  $main.replaceChild(routes[requestedUrl], oldChild);
+  const newChild = routes[requestedUrl];
+
+  // 폼 초기화
+  const form = newChild.querySelector("form");
+  if (form) form.reset();
+
+  $main.replaceChild(newChild, oldChild);
 }
