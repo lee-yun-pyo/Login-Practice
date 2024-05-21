@@ -1,6 +1,6 @@
 import { navigate } from "../routes";
 import { ROUTES } from "../constants";
-import store from "../store";
+import { store } from "../store";
 import { logoutHandler } from "../handler/logoutHandler";
 
 const $navigation = document.createElement("nav");

@@ -1,5 +1,8 @@
-import { ACCESS_TOKEN, API_PATH } from "../constants";
+import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { CommonError } from "../utils/CommonError";
+import { logoutHandler } from "./logoutHandler";
+import { navigate } from "../routes/index";
+import { handleLoginAlert } from "../components/LoginAlertMessage";
 
 export async function createCommentHandler(content) {
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
@@ -15,16 +18,13 @@ export async function createCommentHandler(content) {
       body: JSON.stringify({ content }),
     });
 
-    const {
-      message,
-      comment,
-      creator: { userId, username },
-    } = await response.json();
+    const result = await response.json();
 
     if (!response.ok) {
-      throw new CommonError(message, response.status);
+      throw new CommonError(result.message, response.status);
     }
 
+    const { userId, username, comment } = result;
     return { userId, username, comment };
   } catch (error) {
     if (error instanceof CommonError) {

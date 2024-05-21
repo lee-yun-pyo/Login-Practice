@@ -1,10 +1,8 @@
-import store from "../store";
+import { persistor, store } from "../store";
 import { ACTIONS } from "../store/action";
 
-import { ACCESS_TOKEN } from "../constants";
-
-export function logoutHandler() {
-  localStorage.removeItem(ACCESS_TOKEN);
-  localStorage.removeItem("userId");
+export async function logoutHandler() {
+  localStorage.clear();
   store.dispatch(ACTIONS.logout());
+  persistor.purge();
 }

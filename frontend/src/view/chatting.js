@@ -1,4 +1,4 @@
-import store from "../store";
+import { store } from "../store";
 
 import $chatForm from "../components/ChatForm";
 import { ChatLoginBtnBox } from "../components/ChatLoginBtnBox";

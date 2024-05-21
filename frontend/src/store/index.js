@@ -1,6 +1,13 @@
 import { legacy_createStore } from "redux";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 import { STORE_ACTION_TYPES } from "../constants";
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
 const INIT_STATE = {
   isLogin: false,
@@ -9,7 +16,7 @@ const INIT_STATE = {
   isLoading: false,
 };
 
-function reducer(state = INIT_STATE, action) {
+function rootReducer(state = INIT_STATE, action) {
   switch (action.type) {
     case STORE_ACTION_TYPES.LOGIN:
       return {
@@ -39,6 +46,6 @@ function reducer(state = INIT_STATE, action) {
   }
 }
 
-const store = legacy_createStore(reducer);
-
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const store = legacy_createStore(persistedReducer);
+export const persistor = persistStore(store);

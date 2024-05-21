@@ -1,7 +1,7 @@
 import { navigate } from "../routes/index.js";
 
 import { ACTIONS } from "../store/action.js";
-import store from "../store/index.js";
+import { store } from "../store/index.js";
 
 import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants/index.js";
 import { CommonError } from "../utils/CommonError.js";
