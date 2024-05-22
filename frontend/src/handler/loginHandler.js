@@ -3,10 +3,16 @@ import { navigate } from "../routes/index.js";
 import { ACTIONS } from "../store/action.js";
 import { store } from "../store/index.js";
 
-import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants/index.js";
+import {
+  ACCESS_TOKEN,
+  API_PATH,
+  REMAINING_EXPIRE_TIME,
+  ROUTES,
+} from "../constants/index.js";
 import { CommonError } from "../utils/CommonError.js";
 
 import { handleLoginAlert } from "../components/LoginAlertMessage.js";
+import { handleSessionExpiry } from "./sessionExpiryHandler.js";
 
 export async function loginHandler(account) {
   try {
@@ -27,8 +33,10 @@ export async function loginHandler(account) {
     localStorage.setItem(ACCESS_TOKEN, accessToken);
     localStorage.setItem("userId", userId);
 
-    store.dispatch(ACTIONS.login(userId, username));
+    const expiryDate = new Date(new Date().getTime() + REMAINING_EXPIRE_TIME);
+    store.dispatch(ACTIONS.login(userId, username, expiryDate));
     navigate(ROUTES.HOME);
+    handleSessionExpiry(REMAINING_EXPIRE_TIME);
   } catch (error) {
     if (error instanceof CommonError) {
       const { statusCode, message } = error;

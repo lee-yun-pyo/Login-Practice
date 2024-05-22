@@ -40,3 +40,4 @@ export const STORE_ACTION_TYPES = {
 };
 
 export const ACCESS_TOKEN = "accessToken";
+export const REMAINING_EXPIRE_TIME = 60 * 60 * 1000; // 1hour

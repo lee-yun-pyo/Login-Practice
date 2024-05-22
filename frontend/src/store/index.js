@@ -14,6 +14,7 @@ const INIT_STATE = {
   username: "",
   userId: "",
   isLoading: false,
+  expiresAt: null,
 };
 
 function rootReducer(state = INIT_STATE, action) {
@@ -25,6 +26,7 @@ function rootReducer(state = INIT_STATE, action) {
         userId: action.userId,
         username: action.username,
         isLoading: false,
+        expiresAt: action.expiresAt,
       };
     case STORE_ACTION_TYPES.INIT_LOADED:
       return {
