@@ -20,7 +20,7 @@
     padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .chatting-form {
@@ -76,6 +76,8 @@
     width: 100%;
 
     display: flex;
+    align-items: flex-end;
+    gap: 8px;
 }
 
 .comment-wrpper__self {
@@ -90,7 +92,7 @@
     width: fit-content;
 
     padding: 12px 15px;
-    border-radius: 811px;
+    border-radius: 999px;
 }
 
 .comment-box p {

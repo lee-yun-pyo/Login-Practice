@@ -1,11 +1,14 @@
 import { getCommentsHandler } from "../handler/getCommentsHandler.js";
 import { store } from "../store";
+import { SkeletonChat } from "./SkeletonChat.js";
 
 const $board = document.createElement("div");
 $board.classList.add("chatting-board");
 
 async function render() {
   try {
+    $board.innerHTML = SkeletonChat(3).outerHTML;
+
     const comments = await getCommentsHandler(1);
 
     const paintCommentHTML = () => {
