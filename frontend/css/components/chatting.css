@@ -80,6 +80,14 @@
     cursor: pointer;
 }
 
+.comment-currentDate {
+    margin: 14px 0;
+
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
 .comment-wrapper {
     width: 100%;
 
@@ -88,11 +96,11 @@
     gap: 8px;
 }
 
-.comment-wrpper__self {
+.comment-wrapper__self {
     justify-content: flex-end;
 }
 
-.comment-wrpper__other {
+.comment-wrapper__other {
     justify-content: flex-start;
 }
 
@@ -118,6 +126,7 @@
 
 .comment-box {
     width: fit-content;
+    max-width: 240px;
 
     padding: 12px 15px;
     border-radius: 15px;

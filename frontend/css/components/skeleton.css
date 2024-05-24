@@ -4,7 +4,18 @@
 
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 8px;
+}
+
+.skeleton-chat__currentDate {
+  width: 150px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 15px;
+  margin: 14px 0;
+
+  animation: skeleton-gradient 1.4s infinite ease-in-out;
 }
 
 .skeleton-chat__profile {
@@ -19,7 +30,7 @@
 .skeleton-chat__element {
     position: relative;
     width: 170px;
-    height: 42px;
+    height: 60px;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 15px;
 
@@ -42,7 +53,6 @@
 
 .skeleton-chat__other {
     border-bottom-left-radius: 0;
-    height: 60px;
 }
 
 .skeleton-chat__self {
