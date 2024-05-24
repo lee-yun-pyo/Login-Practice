@@ -34,6 +34,7 @@ async function getComments(req, res, next) {
     const perPage = 20;
     const totalCount = await Comment.find().estimatedDocumentCount();
     const comments = await Comment.find()
+      .populate("creator")
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
     res.status(200).json({
