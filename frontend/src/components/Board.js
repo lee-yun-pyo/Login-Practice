@@ -1,5 +1,6 @@
-import { getCommentsHandler } from "../handler/getCommentsHandler.js";
 import { store } from "../store";
+import { deleteCommentHandler } from "../handler/deleteCommentHandler.js";
+import { getCommentsHandler } from "../handler/getCommentsHandler.js";
 import { formatDateToAmPm, formatDateToYMD } from "../utils/index.js";
 import { SkeletonChat } from "./SkeletonChat.js";
 
@@ -24,14 +25,16 @@ async function render() {
           ? "comment-wrapper__self"
           : "comment-wrapper__other";
 
+        const deleteBtn = `<button class="comment-deleteBtn hidden">삭제</button>`;
         const profileHTML = `<div class="comment-profile">${creator.name[0]}</div>`;
         const createdAtHTML = `<span class="comment-createdAt">${formatDateToAmPm(
           createdAt
         )}</span>`;
         return `
-          <div class="comment-wrapper ${commentWrapperClass}">
+          <div data-id="${_id}" class="comment-wrapper ${commentWrapperClass}">
+            ${isSelf ? deleteBtn : ""}
             ${isSelf ? createdAtHTML : profileHTML}
-            <div data-id="${_id}" class="comment-box ${commentBoxClass}">
+            <div class="comment-box ${commentBoxClass}">
               <p>${content}</p>
             </div>
             ${isSelf ? "" : createdAtHTML}
@@ -52,12 +55,17 @@ async function render() {
         .join("");
 
       $board.innerHTML = commentsHTML;
+
+      $board.addEventListener("mouseenter", handleCommentMouseEnter, true);
+      $board.addEventListener("mouseleave", handleCommentMouseLeave, true);
+      $board.addEventListener("click", handleCommentDelete);
     };
 
     paintCommentHTML();
 
     store.subscribe(paintCommentHTML);
   } catch (error) {
+    // TO_DO: 새로고침 유도
     console.error(error);
   }
 }
@@ -65,3 +73,19 @@ async function render() {
 render();
 
 export default $board;
+
+const handleCommentMouseEnter = ({ target }) => {
+  if (!target.matches(".comment-wrapper__self")) return;
+  target.querySelector(".comment-deleteBtn").classList.remove("hidden");
+};
+
+const handleCommentMouseLeave = ({ target }) => {
+  if (!target.matches(".comment-wrapper__self")) return;
+  target.querySelector(".comment-deleteBtn").classList.add("hidden");
+};
+
+const handleCommentDelete = async ({ target }) => {
+  if (!target.matches(".comment-deleteBtn")) return;
+  const commentId = target.parentNode.getAttribute("data-id");
+  await deleteCommentHandler(commentId);
+};

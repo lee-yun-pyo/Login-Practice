@@ -8,6 +8,7 @@ export const API_PATH = {
   validate: () => `${API_PATH.auth()}/access-token/validate`,
   createComment: () => `${API_PATH.comments()}`,
   getComments: (page) => `${API_PATH.comments()}?page=${page}`,
+  deleteComment: (id) => `${API_PATH.comments()}/${id}`,
 };
 
 export const ROUTES = {
