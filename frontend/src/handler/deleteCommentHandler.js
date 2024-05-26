@@ -1,3 +1,6 @@
+import { store } from "../store";
+import { COMMENT_ACTIONS } from "../store/action";
+
 import { handleLoginAlert } from "../components/LoginAlertMessage";
 import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { navigate } from "../routes";
@@ -22,7 +25,7 @@ export async function deleteCommentHandler(commentId) {
       throw new CommonError(result.message, response.status);
     }
 
-    return result;
+    store.dispatch(COMMENT_ACTIONS.delete(commentId));
   } catch (error) {
     if (error instanceof CommonError) {
       const { message, statusCode } = error;

@@ -11,11 +11,12 @@ async function render() {
   try {
     $board.innerHTML = SkeletonChat(2).outerHTML;
 
-    const comments = await getCommentsHandler(1);
+    await getCommentsHandler(1);
 
     const paintCommentHTML = () => {
       const {
         user: { userId },
+        comment: { comments },
       } = store.getState();
 
       const getCommentHTML = ({ _id, content, creator, createdAt }) => {

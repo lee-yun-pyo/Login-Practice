@@ -54,6 +54,11 @@ function userReducer(state = USER_INIT_STATE, action) {
 
 function commentReducer(state = POST_INIT_STATE, action) {
   switch (action.type) {
+    case COMMENT_ACTION_TYPES.SET_COMMENTS:
+      return {
+        ...state,
+        comments: [...action.fetchedComments],
+      };
     case COMMENT_ACTION_TYPES.ADD_COMMENT:
       return {
         ...state,
@@ -63,7 +68,7 @@ function commentReducer(state = POST_INIT_STATE, action) {
       return {
         ...state,
         comments: state.comments.filter(
-          (comment) => comment.id !== action.commentId
+          (comment) => comment._id !== action.commentId
         ),
       };
     default:

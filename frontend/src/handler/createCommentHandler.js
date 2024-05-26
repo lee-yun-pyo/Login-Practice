@@ -1,3 +1,6 @@
+import { store } from "../store";
+import { COMMENT_ACTIONS } from "../store/action";
+
 import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { CommonError } from "../utils/CommonError";
 import { logoutHandler } from "./logoutHandler";
@@ -24,8 +27,14 @@ export async function createCommentHandler(content) {
       throw new CommonError(result.message, response.status);
     }
 
-    const { userId, username, comment } = result;
-    return { userId, username, comment };
+    const {
+      comment,
+      creator: { userId, username },
+    } = result;
+
+    const newComment = { ...comment, creator: { _id: userId, name: username } };
+
+    store.dispatch(COMMENT_ACTIONS.add(newComment));
   } catch (error) {
     if (error instanceof CommonError) {
       const { message, statusCode } = error;
