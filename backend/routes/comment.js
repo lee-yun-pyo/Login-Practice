@@ -18,4 +18,7 @@ router.put(
 // GET /comments?page=${pageNum}
 router.get("/", commentController.getComments);
 
+// DELETE /comments/:commentId
+router.delete("/:commentId", isAuth, commentController.deleteComment);
+
 export default router;
