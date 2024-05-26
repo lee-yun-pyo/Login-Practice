@@ -19,7 +19,9 @@ function MessageInput() {
 
   const renderMessageInput = () => {
     $box.innerHTML = "";
-    const { isLogin } = store.getState();
+    const {
+      user: { isLogin },
+    } = store.getState();
 
     isLogin ? $box.appendChild($chatForm) : $box.append(ChatLoginBtnBox());
   };

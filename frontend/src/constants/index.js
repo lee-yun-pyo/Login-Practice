@@ -33,11 +33,16 @@ export const ALERT_MESSAGE = {
 
 export const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-export const STORE_ACTION_TYPES = {
+export const USER_ACTION_TYPES = {
   LOGIN: "LOGIN",
   INIT_LOADED: "INIT_LOADED",
   LOGOUT: "LOGOUT",
   LOADING: "LOADING",
+};
+
+export const COMMENT_ACTION_TYPES = {
+  ADD_COMMENT: "ADD_COMMENT",
+  DELETE_COMMENT: "DELETE_COMMENT",
 };
 
 export const ACCESS_TOKEN = "accessToken";

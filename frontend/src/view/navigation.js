@@ -22,7 +22,9 @@ function ButtonBox() {
 
   const renderButtonBox = () => {
     $box.innerHTML = "";
-    const { isLogin, username, isLoading } = store.getState();
+    const {
+      user: { isLogin, username, isLoading },
+    } = store.getState();
 
     const $userName = document.createElement("span");
     $userName.classList.add("nav-username");

@@ -1,6 +1,6 @@
-import { STORE_ACTION_TYPES as action_type } from "../constants";
+import { USER_ACTION_TYPES as action_type } from "../constants";
 
-export const ACTIONS = {
+export const USER_ACTIONS = {
   login: (userId, username, expiresAt) => ({
     type: action_type.LOGIN,
     isLogin: true,

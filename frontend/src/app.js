@@ -13,7 +13,9 @@ $app.appendChild($main);
 $app.appendChild($loading);
 
 function initSessionExpiryCheck() {
-  const { expiresAt } = store.getState();
+  const {
+    user: { expiresAt },
+  } = store.getState();
   if (!expiresAt) return;
 
   const remainingMilliseconds =

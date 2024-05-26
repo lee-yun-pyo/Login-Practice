@@ -1,15 +1,15 @@
-import { legacy_createStore } from "redux";
+import { combineReducers, legacy_createStore } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { STORE_ACTION_TYPES } from "../constants";
+import { COMMENT_ACTION_TYPES, USER_ACTION_TYPES } from "../constants";
 
 const persistConfig = {
   key: "root",
   storage,
 };
 
-const INIT_STATE = {
+const USER_INIT_STATE = {
   isLogin: false,
   username: "",
   userId: "",
@@ -17,9 +17,13 @@ const INIT_STATE = {
   expiresAt: null,
 };
 
-function rootReducer(state = INIT_STATE, action) {
+const POST_INIT_STATE = {
+  comments: [],
+};
+
+function userReducer(state = USER_INIT_STATE, action) {
   switch (action.type) {
-    case STORE_ACTION_TYPES.LOGIN:
+    case USER_ACTION_TYPES.LOGIN:
       return {
         ...state,
         isLogin: action.isLogin,
@@ -28,7 +32,7 @@ function rootReducer(state = INIT_STATE, action) {
         isLoading: false,
         expiresAt: action.expiresAt,
       };
-    case STORE_ACTION_TYPES.INIT_LOADED:
+    case USER_ACTION_TYPES.INIT_LOADED:
       return {
         ...state,
         isLogin: action.isLogin,
@@ -36,8 +40,8 @@ function rootReducer(state = INIT_STATE, action) {
         username: action.username,
         isLoading: false,
       };
-    case STORE_ACTION_TYPES.LOGOUT:
-      return INIT_STATE;
+    case USER_ACTION_TYPES.LOGOUT:
+      return USER_INIT_STATE;
     case "LOADING":
       return {
         ...state,
@@ -47,6 +51,30 @@ function rootReducer(state = INIT_STATE, action) {
       return state;
   }
 }
+
+function commentReducer(state = POST_INIT_STATE, action) {
+  switch (action.type) {
+    case COMMENT_ACTION_TYPES.ADD_COMMENT:
+      return {
+        ...state,
+        comments: [...state.comments, action.newComment],
+      };
+    case COMMENT_ACTION_TYPES.DELETE_COMMENT:
+      return {
+        ...state,
+        comments: state.comments.filter(
+          (comment) => comment.id !== action.commentId
+        ),
+      };
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({
+  user: userReducer,
+  comment: commentReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = legacy_createStore(persistedReducer);

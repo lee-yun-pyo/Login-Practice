@@ -14,7 +14,9 @@ async function render() {
     const comments = await getCommentsHandler(1);
 
     const paintCommentHTML = () => {
-      const { userId } = store.getState();
+      const {
+        user: { userId },
+      } = store.getState();
 
       const getCommentHTML = ({ _id, content, creator, createdAt }) => {
         const isSelf = creator._id === userId;

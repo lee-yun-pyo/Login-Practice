@@ -1,5 +1,5 @@
 import store from "../store/index.js";
-import { ACTIONS } from "../store/action.js";
+import { USER_ACTIONS } from "../store/action.js";
 
 import { API_PATH, ROUTES, ACCESS_TOKEN } from "../constants/index.js";
 
@@ -17,7 +17,7 @@ export async function loadedHandler() {
     return;
   }
 
-  store.dispatch(ACTIONS.loading());
+  store.dispatch(USER_ACTIONS.loading());
   showLoadingUI();
   try {
     const response = await fetch(API_PATH.validate(), {
@@ -34,7 +34,7 @@ export async function loadedHandler() {
       throw new CommonError(message, response.status);
     }
 
-    store.dispatch(ACTIONS.initializeLoginStatus(username, userId));
+    store.dispatch(USER_ACTIONS.initializeLoginStatus(username, userId));
     showContentUI();
   } catch (error) {
     if (error instanceof CommonError) {

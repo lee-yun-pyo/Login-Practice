@@ -1,6 +1,6 @@
 import { navigate } from "../routes/index.js";
 
-import { ACTIONS } from "../store/action.js";
+import { USER_ACTIONS } from "../store/action.js";
 import { store } from "../store/index.js";
 
 import {
@@ -34,7 +34,7 @@ export async function loginHandler(account) {
     localStorage.setItem("userId", userId);
 
     const expiryDate = new Date(new Date().getTime() + REMAINING_EXPIRE_TIME);
-    store.dispatch(ACTIONS.login(userId, username, expiryDate));
+    store.dispatch(USER_ACTIONS.login(userId, username, expiryDate));
     navigate(ROUTES.HOME);
     handleSessionExpiry(REMAINING_EXPIRE_TIME);
   } catch (error) {
