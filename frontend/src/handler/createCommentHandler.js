@@ -1,6 +1,3 @@
-import { store } from "../store";
-import { COMMENT_ACTIONS } from "../store/action";
-
 import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { CommonError } from "../utils/CommonError";
 import { logoutHandler } from "./logoutHandler";
@@ -8,10 +5,12 @@ import { navigate } from "../routes/index";
 import { handleLoginAlert } from "../components/LoginAlertMessage";
 
 export async function createCommentHandler(content) {
-  const accessToken = localStorage.getItem(ACCESS_TOKEN);
-  if (!accessToken) return;
-
   try {
+    const accessToken = localStorage.getItem(ACCESS_TOKEN);
+    if (!accessToken) {
+      throw new CommonError("로그인 먼저 해주세요.", 401);
+    }
+
     const response = await fetch(API_PATH.createComment(), {
       method: "PUT",
       headers: {
@@ -34,7 +33,7 @@ export async function createCommentHandler(content) {
 
     const newComment = { ...comment, creator: { _id: userId, name: username } };
 
-    store.dispatch(COMMENT_ACTIONS.add(newComment));
+    return newComment;
   } catch (error) {
     if (error instanceof CommonError) {
       const { message, statusCode } = error;

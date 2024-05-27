@@ -79,11 +79,13 @@ export default $board;
 
 const handleCommentMouseEnter = ({ target }) => {
   if (!target.matches(".comment-wrapper__self")) return;
+  if (target.matches(".comment-wrapper__temp")) return;
   target.querySelector(".comment-deleteBtn").classList.remove("hidden");
 };
 
 const handleCommentMouseLeave = ({ target }) => {
   if (!target.matches(".comment-wrapper__self")) return;
+  if (target.matches(".comment-wrapper__temp")) return;
   target.querySelector(".comment-deleteBtn").classList.add("hidden");
 };
 
