@@ -62,6 +62,11 @@ async function deleteComment(req, res, next) {
     }
     const result = await Comment.findByIdAndDelete(commentId);
 
+    // 유저 데이터 댓글 삭제
+    const user = await User.findById(req.userId);
+    user.comments = user.comments.filter((id) => id.toString() !== commentId);
+    await user.save();
+
     res
       .status(200)
       .json({ message: "comment was deleted successfully", result });
