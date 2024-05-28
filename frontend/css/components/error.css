@@ -1,0 +1,29 @@
+.error-board__container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.error-board__icon {
+    color: #dd7e25;
+}
+
+.error-board__text {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.error-board__refresh-button {
+    background-color: #3182F6;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 10px;
+    border-radius: 8px;
+}

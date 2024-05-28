@@ -6,6 +6,7 @@ import { getCommentsHandler } from "../handler/getCommentsHandler.js";
 import { formatDateToAmPm, formatDateToYMD } from "../utils/index.js";
 
 import { SkeletonChat } from "./SkeletonChat.js";
+import { BoardError } from "./BoardError.js";
 
 const $board = document.createElement("div");
 $board.classList.add("chatting-board");
@@ -71,8 +72,8 @@ async function render() {
 
     store.subscribe(paintCommentHTML);
   } catch (error) {
-    // TO_DO: 새로고침 유도
-    console.error(error);
+    $board.removeChild($board.childNodes[0]);
+    $board.appendChild(BoardError());
   }
 }
 
