@@ -1,6 +1,3 @@
-import { store } from "../store";
-import { COMMENT_ACTIONS } from "../store/action";
-
 import { handleLoginAlert } from "../components/LoginAlertMessage";
 import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { navigate } from "../routes";
@@ -9,7 +6,9 @@ import { logoutHandler } from "./logoutHandler";
 
 export async function deleteCommentHandler(commentId) {
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
-  if (!accessToken) return;
+  if (!accessToken) {
+    throw new CommonError("로그인 먼저 해주세요.", 401);
+  }
 
   try {
     const response = await fetch(API_PATH.deleteComment(commentId), {
@@ -24,8 +23,6 @@ export async function deleteCommentHandler(commentId) {
     if (!response.ok) {
       throw new CommonError(result.message, response.status);
     }
-
-    store.dispatch(COMMENT_ACTIONS.delete(commentId));
   } catch (error) {
     if (error instanceof CommonError) {
       const { message, statusCode } = error;

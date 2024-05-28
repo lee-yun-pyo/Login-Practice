@@ -1,7 +1,10 @@
 import { store } from "../store";
+import { COMMENT_ACTIONS } from "../store/action.js";
+
 import { deleteCommentHandler } from "../handler/deleteCommentHandler.js";
 import { getCommentsHandler } from "../handler/getCommentsHandler.js";
 import { formatDateToAmPm, formatDateToYMD } from "../utils/index.js";
+
 import { SkeletonChat } from "./SkeletonChat.js";
 
 const $board = document.createElement("div");
@@ -91,6 +94,19 @@ const handleCommentMouseLeave = ({ target }) => {
 
 const handleCommentDelete = async ({ target }) => {
   if (!target.matches(".comment-deleteBtn")) return;
-  const commentId = target.parentNode.getAttribute("data-id");
-  await deleteCommentHandler(commentId);
+
+  const commentElement = target.closest("[data-id]");
+
+  const commentId = commentElement.getAttribute("data-id");
+  const $createdAtSpan = commentElement.querySelector(".comment-createdAt");
+  const createdAtSpanText = $createdAtSpan.innerText;
+  $createdAtSpan.innerText = "삭제 중...";
+
+  try {
+    await deleteCommentHandler(commentId);
+    store.dispatch(COMMENT_ACTIONS.delete(commentId));
+  } catch (error) {
+    // 📌TO_DO: 삭제 시 에러 발생 시 처리
+    $createdAtSpan.innerText = createdAtSpanText;
+  }
 };
