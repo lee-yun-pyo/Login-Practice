@@ -32,6 +32,8 @@ export async function deleteCommentHandler(commentId) {
         logoutHandler();
         navigate(ROUTES.LOGIN);
         handleLoginAlert(message);
+      } else if (statusCode === 500) {
+        throw new Error("서버에 문제가 발생했어요. \n 다시 시도해 주세요");
       }
     } else {
       throw new Error(String(error));

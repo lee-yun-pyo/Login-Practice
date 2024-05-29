@@ -7,6 +7,7 @@ import { formatDateToAmPm, formatDateToYMD } from "../utils/index.js";
 
 import { SkeletonChat } from "./SkeletonChat.js";
 import { BoardError } from "./BoardError.js";
+import { ChatToastMessage } from "./ChatToastError.js";
 
 const $board = document.createElement("div");
 $board.classList.add("chatting-board");
@@ -32,7 +33,9 @@ async function render() {
           ? "comment-wrapper__self"
           : "comment-wrapper__other";
 
-        const deleteBtn = `<button class="comment-deleteBtn hidden">삭제</button>`;
+        const deleteBtn = `<button class="comment-deleteBtn hidden">
+                             <i class="fa-solid fa-trash"></i>
+                           </button>`;
         const profileHTML = `<div class="comment-profile">${creator.name[0]}</div>`;
         const createdAtHTML = `<span class="comment-createdAt">${formatDateToAmPm(
           createdAt
@@ -93,8 +96,25 @@ const handleCommentMouseLeave = ({ target }) => {
   target.querySelector(".comment-deleteBtn").classList.add("hidden");
 };
 
+function createAndAppendToast(message, isError) {
+  const toastMessage = ChatToastMessage(message, isError);
+  $board.appendChild(toastMessage);
+  return toastMessage;
+}
+
+function hideAndRemoveToast(toastMessage) {
+  setTimeout(() => {
+    toastMessage.classList.add("hide-chat__toast");
+    toastMessage.addEventListener("animationend", (event) => {
+      if (event.animationName === "hideToastMessage") {
+        $board.removeChild(toastMessage);
+      }
+    });
+  }, 2000);
+}
+
 const handleCommentDelete = async ({ target }) => {
-  if (!target.matches(".comment-deleteBtn")) return;
+  if (!target.closest(".comment-deleteBtn")) return;
 
   const commentElement = target.closest("[data-id]");
 
@@ -103,11 +123,15 @@ const handleCommentDelete = async ({ target }) => {
   const createdAtSpanText = $createdAtSpan.innerText;
   $createdAtSpan.innerText = "삭제 중...";
 
+  let toastMessage;
   try {
     await deleteCommentHandler(commentId);
     store.dispatch(COMMENT_ACTIONS.delete(commentId));
+    toastMessage = createAndAppendToast("댓글을 삭제했어요", false);
   } catch (error) {
-    // 📌TO_DO: 삭제 시 에러 발생 시 처리
+    toastMessage = createAndAppendToast(error.message, true);
     $createdAtSpan.innerText = createdAtSpanText;
+  } finally {
+    hideAndRemoveToast(toastMessage);
   }
 };

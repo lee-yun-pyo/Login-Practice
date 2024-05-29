@@ -27,3 +27,13 @@
     padding: 12px 10px;
     border-radius: 8px;
 }
+
+.error-chat__toast {
+    background-color: #f5dddc;    
+    color: #E73F49;
+}
+
+.plain-chat__toast {
+    background-color: #ccf5e5;    
+    color: #01A262;
+}
