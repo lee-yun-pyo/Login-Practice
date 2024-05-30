@@ -1,5 +1,5 @@
-import { navigate } from "../routes";
-import { ROUTES } from "../constants";
+import { navigate } from "../../routes";
+import { ROUTES } from "../../constants";
 
 /**
  * 회원가입 또는 로그인 페이지 텍스트 버튼

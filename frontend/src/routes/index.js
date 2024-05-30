@@ -1,5 +1,5 @@
 import Home from "../view/chatting.js";
-import Login from "../view/login.js";
+import { LoginView } from "../view/login.js";
 import SignUp from "../view/signup.js";
 import $main from "../view/main.js";
 
@@ -7,7 +7,7 @@ import { ROUTES } from "../constants/index.js";
 
 export const routes = {
   [ROUTES.HOME]: Home,
-  [ROUTES.LOGIN]: Login,
+  [ROUTES.LOGIN]: LoginView(),
   [ROUTES.SIGNUP]: SignUp,
 };
 

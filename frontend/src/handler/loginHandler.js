@@ -11,7 +11,7 @@ import {
 } from "../constants/index.js";
 import { CommonError } from "../utils/CommonError.js";
 
-import { handleLoginAlert } from "../components/LoginAlertMessage.js";
+import { handleLoginAlert } from "../components/Sign/LoginAlertMessage.js";
 import { handleSessionExpiry } from "./sessionExpiryHandler.js";
 
 export async function loginHandler(account) {

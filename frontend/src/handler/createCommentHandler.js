@@ -2,7 +2,7 @@ import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { CommonError } from "../utils/CommonError";
 import { logoutHandler } from "./logoutHandler";
 import { navigate } from "../routes/index";
-import { handleLoginAlert } from "../components/LoginAlertMessage";
+import { handleLoginAlert } from "../components/Sign/LoginAlertMessage";
 
 export async function createCommentHandler(content) {
   try {

@@ -1,8 +1,8 @@
 import { ALERT_MESSAGE, emailRegex } from "../constants";
 import * as authFunc from "../utils/auth";
 
-import { SignTextBtn } from "../components/SignTextBtn";
-import { SignTitle } from "../components/signTitle";
+import { SignTextBtn } from "../components/Sign/SignTextBtn";
+import { SignTitle } from "../components/Sign/SignTitle";
 import {
   $signupAlertMessage,
   handleSignupAlert,

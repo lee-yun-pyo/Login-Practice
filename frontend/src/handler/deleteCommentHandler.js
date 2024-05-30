@@ -1,4 +1,4 @@
-import { handleLoginAlert } from "../components/LoginAlertMessage";
+import { handleLoginAlert } from "../components/Sign/LoginAlertMessage";
 import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { navigate } from "../routes";
 import { CommonError } from "../utils/CommonError";
