@@ -1,7 +1,7 @@
 import { API_PATH } from "../constants";
 import { CommonError } from "../utils/CommonError";
 
-import { handleSignupAlert } from "../components/SignupAlertMessage";
+import { handleSignupAlert } from "../components/Sign/SignupAlertMessage";
 
 export async function signUpHandler(account) {
   try {

@@ -1,5 +1,5 @@
-import { ROUTES } from "../constants";
-import { navigate } from "../routes";
+import { ROUTES } from "../../constants";
+import { navigate } from "../../routes";
 
 export function SignupComplete(username) {
   const $contianer = document.createElement("div");

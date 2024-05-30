@@ -1,14 +1,17 @@
+import { ROUTES } from "../constants/index.js";
+
 import Home from "../view/chatting.js";
 import { LoginView } from "../view/login.js";
-import SignUp from "../view/signup.js";
+import { SignupView } from "../view/signup.js";
 import $main from "../view/main.js";
 
-import { ROUTES } from "../constants/index.js";
+import { handleSignupAlert } from "../components/Sign/SignupAlertMessage.js";
+import { handleLoginAlert } from "../components/Sign/LoginAlertMessage.js";
 
 export const routes = {
   [ROUTES.HOME]: Home,
   [ROUTES.LOGIN]: LoginView(),
-  [ROUTES.SIGNUP]: SignUp,
+  [ROUTES.SIGNUP]: SignupView(),
 };
 
 export function navigate(requestedUrl) {
@@ -21,8 +24,10 @@ export function navigate(requestedUrl) {
   const newChild = routes[requestedUrl];
 
   // 폼 초기화
-  const form = newChild.querySelector("form");
-  if (form) form.reset();
+  const $form = newChild.querySelector("form");
+  if ($form) $form.reset();
+  handleLoginAlert("");
+  handleSignupAlert("");
 
   $main.replaceChild(newChild, oldChild);
 }

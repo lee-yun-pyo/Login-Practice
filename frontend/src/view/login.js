@@ -7,10 +7,15 @@ export function LoginView() {
   const $container = document.createElement("div");
   $container.classList.add("sign-wrapper");
 
-  $container.appendChild(SignTitle(true));
-  $container.appendChild(LoginForm());
-  $container.appendChild($loginAlertMessage);
-  $container.appendChild(SignTextBtn(true));
+  const $signBox = document.createElement("div");
+  $signBox.classList.add("sign-box");
+
+  $signBox.appendChild(SignTitle(true));
+  $signBox.appendChild(LoginForm());
+  $signBox.appendChild($loginAlertMessage);
+  $signBox.appendChild(SignTextBtn(true));
+
+  $container.appendChild($signBox);
 
   return $container;
 }
