@@ -38,14 +38,6 @@ export async function loginHandler(account) {
     navigate(ROUTES.HOME);
     handleSessionExpiry(REMAINING_EXPIRE_TIME);
   } catch (error) {
-    if (error instanceof CommonError) {
-      const { statusCode, message } = error;
-
-      if (statusCode === 401) {
-        handleLoginAlert(message);
-      } else {
-        throw error;
-      }
-    }
+    throw error;
   }
 }

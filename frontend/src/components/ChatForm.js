@@ -1,6 +1,8 @@
 import { store } from "../store";
 import { COMMENT_ACTIONS } from "../store/action";
 
+import { disableButton, enableButton } from "../utils";
+
 import $board from "./Board";
 
 import { createCommentHandler } from "../handler/createCommentHandler";
@@ -17,16 +19,13 @@ const $button = document.createElement("input");
 $button.setAttribute("type", "submit");
 $button.setAttribute("value", "전송");
 $button.classList.add("messageInput-button");
-$button.classList.add("disabled");
-$button.disabled = true;
+disableButton($button);
 
 $input.addEventListener("input", () => {
   if ($input.value.trim() === "") {
-    $button.disabled = true;
-    $button.classList.add("disabled");
+    disableButton($button);
   } else {
-    $button.disabled = false;
-    $button.classList.remove("disabled");
+    enableButton($button);
   }
 });
 
@@ -41,7 +40,7 @@ async function handleSubmitComment(event, content) {
   event.preventDefault();
   if (content === "") return;
 
-  disableButton();
+  disableButton($button);
 
   const $tempCommentNode = createTempCommentNode(content);
   $board.appendChild($tempCommentNode);
@@ -56,7 +55,7 @@ async function handleSubmitComment(event, content) {
     if ($board.contains($tempCommentNode)) {
       $board.removeChild($tempCommentNode);
     }
-    enableButton();
+    enableButton($button);
     clearInput();
   }
 }
@@ -77,16 +76,6 @@ function createTempCommentNode(content) {
   `;
 
   return $newComment;
-}
-
-function disableButton() {
-  $button.disabled = true;
-  $button.classList.add("disabled");
-}
-
-function enableButton() {
-  $button.disabled = false;
-  $button.classList.remove("disabled");
 }
 
 function clearInput() {

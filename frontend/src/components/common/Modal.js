@@ -1,4 +1,4 @@
-import { logoutHandler } from "../handler/logoutHandler";
+import { logoutHandler } from "../../handler/logoutHandler";
 
 const $modalExtendBtn = document.querySelector(".modal_extend-btn");
 const $modalLogoutBtn = document.querySelector(".modal_logout-btn");

@@ -20,3 +20,13 @@ export function formatDateToYMD(dateString) {
 
   return `${year}년 ${month}월 ${day}일`;
 }
+
+export function disableButton($submitButton) {
+  $submitButton.disabled = true;
+  $submitButton.classList.add("disabled");
+}
+
+export function enableButton($submitButton) {
+  $submitButton.disabled = false;
+  $submitButton.classList.remove("disabled");
+}

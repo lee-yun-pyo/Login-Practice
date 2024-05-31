@@ -1,8 +1,10 @@
 import * as authFunc from "../../utils/auth";
-import { handleSignupAlert } from "./SignupAlertMessage";
+import { CommonError } from "../../utils/CommonError";
+import { disableButton, enableButton } from "../../utils";
 import { ALERT_MESSAGE, emailRegex } from "../../constants";
 
 import { SignupComplete } from "./SignupComplete";
+import { handleSignupAlert } from "./SignupAlertMessage";
 
 import { signUpHandler } from "../../handler/signupHandler";
 
@@ -39,7 +41,9 @@ export function SignUpForm() {
 const handleAlert = ($submitButton) => {
   return (message) => {
     handleSignupAlert(message);
-    $submitButton.disabled = false;
+    if ($submitButton) {
+      enableButton($submitButton);
+    }
   };
 };
 
@@ -48,7 +52,7 @@ async function submitHandler(event, formElements, showAlert) {
     formElements;
 
   event.preventDefault();
-  $submitButton.disabled = true;
+  disableButton($submitButton);
 
   const account = {
     email: $emailInput.value,
@@ -93,12 +97,22 @@ async function submitHandler(event, formElements, showAlert) {
     return;
   }
 
-  showAlert("");
+  try {
+    const username = await signUpHandler(account);
+    showAlert("");
+    moveToSignupComplete(username);
+  } catch (error) {
+    if (error instanceof CommonError) {
+      const { statusCode, message } = error;
 
-  const username = await signUpHandler(account);
-  if (username) moveToSignupComplete(username);
-
-  $submitButton.disabled = false;
+      // 이메일 중복 에러 메시지 출력
+      if (statusCode === 409) {
+        showAlert(message);
+      }
+    } else {
+      showAlert("에러가 발생했어요. 다시 시도해주세요");
+    }
+  }
 }
 
 function moveToSignupComplete(username) {

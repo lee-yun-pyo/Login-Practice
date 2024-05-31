@@ -1,6 +1,9 @@
 import * as authFunc from "../../utils/auth";
-import { handleLoginAlert } from "./LoginAlertMessage";
+import { disableButton, enableButton } from "../../utils";
+import { CommonError } from "../../utils/CommonError";
 import { ALERT_MESSAGE, emailRegex } from "../../constants";
+
+import { handleLoginAlert } from "./LoginAlertMessage";
 
 import { loginHandler } from "../../handler/loginHandler";
 
@@ -33,15 +36,17 @@ export function LoginForm() {
 const handleAlert = ($submitButton) => {
   return (message) => {
     handleLoginAlert(message);
-    $submitButton.disabled = false;
+    if ($submitButton) {
+      enableButton($submitButton);
+    }
   };
 };
 
-function submitHandler(event, formElements, showAlert) {
+async function submitHandler(event, formElements, showAlert) {
   const { $emailInput, $passwordInput, $submitButton } = formElements;
 
   event.preventDefault();
-  $submitButton.disabled = true;
+  disableButton($submitButton);
 
   const account = {
     email: $emailInput.value,
@@ -64,8 +69,17 @@ function submitHandler(event, formElements, showAlert) {
     return;
   }
 
-  showAlert("");
-
-  loginHandler(account);
-  $submitButton.disabled = false;
+  try {
+    await loginHandler(account);
+    showAlert("");
+  } catch (error) {
+    if (error instanceof CommonError) {
+      const { statusCode, message } = error;
+      if (statusCode === 401) {
+        showAlert(message);
+      }
+    } else {
+      showAlert("에러가 발생했어요. 다시 시도해주세요");
+    }
+  }
 }

@@ -1,16 +1,16 @@
-import "./components/Modal.js";
+import { store } from "./store/index.js";
+
 import $navigation from "./view/navigation.js";
 import $main from "./view/main.js";
 
-import $loading from "./components/Loading.js";
-import { store } from "./store/index.js";
+import "./components/common/Modal.js";
+
 import { handleSessionExpiry } from "./handler/sessionExpiryHandler.js";
 
 const $app = document.getElementById("app");
 
 $app.appendChild($navigation);
 $app.appendChild($main);
-$app.appendChild($loading);
 
 function initSessionExpiryCheck() {
   const {
