@@ -22,11 +22,78 @@
         </div>
       </nav>
       <main>
-        <div class="chatting-container">
+        <div id="chattingView" class="chatting-container">
           <h2>게시판</h2>
           <div class="chatting-box">
             <div class="chatting-board"></div>
             <div class="chatting-inputBox"></div>
+          </div>
+        </div>
+        <div id="loginView" class="sign-wrapper hidden">
+          <div class="sign-box">
+            <h2>로그인</h2>
+            <form class="sign-form">
+              <input
+                class="sign-inputText"
+                type="text"
+                placeholder="example@email.com"
+              />
+              <input
+                class="sign-inputText"
+                type="password"
+                placeholder="비밀번호"
+                autocomplete="off"
+              />
+              <input
+                id="login-submitBtn"
+                class="sign-submitBtn"
+                type="submit"
+                value="로그인"
+              />
+            </form>
+            <p class="alert-text"></p>
+            <span class="sign-textBtn">계정이 없다면 회원가입</span>
+          </div>
+        </div>
+        <div id="signupView" class="sign-wrapper hidden">
+          <div class="sign-box">
+            <h2>회원가입</h2>
+            <form class="sign-form">
+              <input
+                id="email-input"
+                class="sign-inputText"
+                type="text"
+                placeholder="example@email.com"
+              />
+              <input
+                id="name-input"
+                class="sign-inputText"
+                type="text"
+                placeholder="이름"
+              />
+              <input
+                id="pw-input"
+                class="sign-inputText"
+                type="password"
+                placeholder="비밀번호"
+                autocomplete="off"
+              />
+              <input
+                id="pwConfirm-input"
+                class="sign-inputText"
+                type="password"
+                placeholder="비밀번호 확인"
+                autocomplete="off"
+              />
+              <input
+                id="signup-submitBtn"
+                class="sign-submitBtn"
+                type="submit"
+                value="회원가입"
+              />
+            </form>
+            <p class="alert-text"></p>
+            <span class="sign-textBtn">계정이 있다면 로그인</span>
           </div>
         </div>
       </main>

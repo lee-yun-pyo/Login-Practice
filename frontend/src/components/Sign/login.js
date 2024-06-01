@@ -1,46 +1,51 @@
 import * as authFunc from "../../utils/auth";
 import { disableButton, enableButton } from "../../utils";
 import { CommonError } from "../../utils/CommonError";
-import { ALERT_MESSAGE, emailRegex } from "../../constants";
+import { ALERT_MESSAGE, ROUTES, emailRegex } from "../../constants";
+import { navigate } from "../../routes";
 
 import { handleLoginAlert } from "./LoginAlertMessage";
 
 import { loginHandler } from "../../handler/loginHandler";
 
-export function LoginForm() {
-  const $form = document.createElement("form");
-  $form.classList.add("sign-form");
+const $loginContainer = document.querySelector("#loginView");
+const $signupContainer = document.querySelector("#signupView");
 
-  $form.innerHTML = ` 
-    <input class="sign-inputText" type="text" placeholder="example@email.com" />
-    <input class="sign-inputText" type="password" placeholder="비밀번호" autocomplete="off" />
-    <input id="login-submitBtn" class="sign-submitBtn" type="submit" value="로그인" />
-   `;
+const addNavigationListener = (button, route) => {
+  button.addEventListener("click", () => navigate(route));
+};
 
-  const formElements = {
-    $emailInput: $form.querySelector('input[type="text"]'),
-    $passwordInput: $form.querySelector('input[type="password"]'),
-    $submitButton: $form.querySelector("#login-submitBtn"),
-  };
+const setupNavigation = () => {
+  const $loginTextButton = $loginContainer.querySelector(".sign-textBtn");
+  const $signupTextButton = $signupContainer.querySelector(".sign-textBtn");
 
-  const showAlert = handleAlert(formElements.$submitButton);
-  showAlert("");
+  addNavigationListener($loginTextButton, ROUTES.SIGNUP);
+  addNavigationListener($signupTextButton, ROUTES.LOGIN);
+};
 
-  $form.addEventListener("submit", (event) =>
-    submitHandler(event, formElements, showAlert)
-  );
+setupNavigation();
 
-  return $form;
-}
+const $loginForm = $loginContainer.querySelector("form");
+const formElements = {
+  $emailInput: $loginForm.querySelector('input[type="text"]'),
+  $passwordInput: $loginForm.querySelector('input[type="password"]'),
+  $submitButton: $loginForm.querySelector("#login-submitBtn"),
+};
 
-const handleAlert = ($submitButton) => {
+const handleAlert = ($button) => {
   return (message) => {
     handleLoginAlert(message);
-    if ($submitButton) {
-      enableButton($submitButton);
+    if ($button) {
+      enableButton($button);
     }
   };
 };
+
+const showAlert = handleAlert(formElements.$submitButton);
+
+$loginForm.addEventListener("submit", (event) => {
+  submitHandler(event, formElements, showAlert);
+});
 
 async function submitHandler(event, formElements, showAlert) {
   const { $emailInput, $passwordInput, $submitButton } = formElements;

@@ -1,9 +1,7 @@
-const $loginAlertMessage = document.createElement("p");
-$loginAlertMessage.classList.add("alert-text");
+export function handleLoginAlert(message) {
+  const $loginContainer = document.querySelector("#loginView"),
+    $loginAlertMessage = $loginContainer.querySelector(".alert-text");
 
-function handleLoginAlert(message) {
   $loginAlertMessage.style.display = message !== "" ? "block" : "none";
   $loginAlertMessage.innerText = message;
 }
-
-export { $loginAlertMessage, handleLoginAlert };
