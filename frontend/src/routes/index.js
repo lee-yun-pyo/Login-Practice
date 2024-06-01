@@ -1,6 +1,7 @@
 import { ROUTES } from "../constants/index.js";
 
-import { handleLoginAlert } from "../components/Sign/LoginAlertMessage.js";
+import { handleLoginAlert } from "../components/Sign/loginAlertMessage.js";
+import { handleSignupAlert } from "../components/Sign/signupAlertMessage.js";
 
 export function navigate(requestedUrl) {
   const $main = document.querySelector("main");
@@ -9,6 +10,7 @@ export function navigate(requestedUrl) {
     chatting: $main.querySelector("#chattingView"),
     login: $main.querySelector("#loginView"),
     signup: $main.querySelector("#signupView"),
+    complete: $main.querySelector("#signupCompleteView"),
   };
 
   const updateHistory = (url) => {
@@ -51,5 +53,5 @@ export function navigate(requestedUrl) {
   $signWrappers.forEach(resetForm);
 
   handleLoginAlert("");
-  // handleSignupAlert("");
+  handleSignupAlert("");
 }

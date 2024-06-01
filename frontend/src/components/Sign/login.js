@@ -1,29 +1,13 @@
 import * as authFunc from "../../utils/auth";
 import { disableButton, enableButton } from "../../utils";
 import { CommonError } from "../../utils/CommonError";
-import { ALERT_MESSAGE, ROUTES, emailRegex } from "../../constants";
-import { navigate } from "../../routes";
+import { ALERT_MESSAGE, emailRegex } from "../../constants";
 
-import { handleLoginAlert } from "./LoginAlertMessage";
+import { handleLoginAlert } from "./loginAlertMessage";
 
 import { loginHandler } from "../../handler/loginHandler";
 
 const $loginContainer = document.querySelector("#loginView");
-const $signupContainer = document.querySelector("#signupView");
-
-const addNavigationListener = (button, route) => {
-  button.addEventListener("click", () => navigate(route));
-};
-
-const setupNavigation = () => {
-  const $loginTextButton = $loginContainer.querySelector(".sign-textBtn");
-  const $signupTextButton = $signupContainer.querySelector(".sign-textBtn");
-
-  addNavigationListener($loginTextButton, ROUTES.SIGNUP);
-  addNavigationListener($signupTextButton, ROUTES.LOGIN);
-};
-
-setupNavigation();
 
 const $loginForm = $loginContainer.querySelector("form");
 const formElements = {

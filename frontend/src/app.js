@@ -2,7 +2,9 @@ import { navigate } from "./routes/index.js";
 
 import "./components/common/Navigation.js";
 import "./components/common/Modal.js";
+import "./components/Sign/navigateSign.js";
 import "./components/Sign/login.js";
+import "./components/Sign/signup.js";
 
 import { initSessionExpiryCheck } from "./handler/sessionExpiryHandler.js";
 
