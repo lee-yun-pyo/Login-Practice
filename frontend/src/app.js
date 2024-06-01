@@ -1,15 +1,14 @@
 import { store } from "./store/index.js";
 
-import $navigation from "./view/navigation.js";
 import $main from "./view/main.js";
 
+import "./components/common/Navigation.js";
 import "./components/common/Modal.js";
 
 import { handleSessionExpiry } from "./handler/sessionExpiryHandler.js";
 
 const $app = document.getElementById("app");
 
-$app.appendChild($navigation);
 $app.appendChild($main);
 
 function initSessionExpiryCheck() {
