@@ -1,33 +1,57 @@
 import { ROUTES } from "../constants/index.js";
 
-import Home from "../view/chatting.js";
-import { LoginView } from "../view/login.js";
-import { SignupView } from "../view/signup.js";
-import $main from "../view/main.js";
-
-import { handleSignupAlert } from "../components/Sign/SignupAlertMessage.js";
-import { handleLoginAlert } from "../components/Sign/LoginAlertMessage.js";
-
-export const routes = {
-  [ROUTES.HOME]: Home,
-  [ROUTES.LOGIN]: LoginView(),
-  [ROUTES.SIGNUP]: SignupView(),
-};
+import { handleLoginAlert } from "../components/Sign/loginAlertMessage.js";
+import { handleSignupAlert } from "../components/Sign/signupAlertMessage.js";
 
 export function navigate(requestedUrl) {
-  if (requestedUrl === window.location.pathname)
-    history.replaceState(null, "", requestedUrl);
-  else history.pushState(null, "", requestedUrl);
+  const $main = document.querySelector("main");
+  const $signWrappers = $main.querySelectorAll(".sign-wrapper");
+  const views = {
+    chatting: $main.querySelector("#chattingView"),
+    login: $main.querySelector("#loginView"),
+    signup: $main.querySelector("#signupView"),
+    complete: $main.querySelector("#signupCompleteView"),
+  };
 
-  // 노드 교체
-  const oldChild = $main.children[0];
-  const newChild = routes[requestedUrl];
+  const updateHistory = (url) => {
+    if (url === window.location.pathname) {
+      history.replaceState(null, "", url);
+    } else {
+      history.pushState(null, "", url);
+    }
+  };
+
+  const showView = (viewToShow) => {
+    Object.values(views).forEach((view) => view.classList.add("hidden"));
+    viewToShow.classList.remove("hidden");
+  };
+
+  updateHistory(requestedUrl);
+
+  switch (requestedUrl) {
+    case ROUTES.HOME:
+      showView(views.chatting);
+      break;
+    case ROUTES.LOGIN:
+      showView(views.login);
+      break;
+    case ROUTES.SIGNUP:
+      showView(views.signup);
+      break;
+    default:
+      break;
+  }
+
+  const resetForm = (wrapper) => {
+    const $form = wrapper.querySelector("form");
+    if ($form) {
+      $form.reset();
+    }
+  };
 
   // 폼 초기화
-  const $form = newChild.querySelector("form");
-  if ($form) $form.reset();
+  $signWrappers.forEach(resetForm);
+
   handleLoginAlert("");
   handleSignupAlert("");
-
-  $main.replaceChild(newChild, oldChild);
 }

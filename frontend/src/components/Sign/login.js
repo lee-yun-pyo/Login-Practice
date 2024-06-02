@@ -3,44 +3,33 @@ import { disableButton, enableButton } from "../../utils";
 import { CommonError } from "../../utils/CommonError";
 import { ALERT_MESSAGE, emailRegex } from "../../constants";
 
-import { handleLoginAlert } from "./LoginAlertMessage";
+import { handleLoginAlert } from "./loginAlertMessage";
 
 import { loginHandler } from "../../handler/loginHandler";
 
-export function LoginForm() {
-  const $form = document.createElement("form");
-  $form.classList.add("sign-form");
+const $loginContainer = document.querySelector("#loginView");
 
-  $form.innerHTML = ` 
-    <input class="sign-inputText" type="text" placeholder="example@email.com" />
-    <input class="sign-inputText" type="password" placeholder="비밀번호" autocomplete="off" />
-    <input id="login-submitBtn" class="sign-submitBtn" type="submit" value="로그인" />
-   `;
+const $loginForm = $loginContainer.querySelector("form");
+const formElements = {
+  $emailInput: $loginForm.querySelector('input[type="text"]'),
+  $passwordInput: $loginForm.querySelector('input[type="password"]'),
+  $submitButton: $loginForm.querySelector("#login-submitBtn"),
+};
 
-  const formElements = {
-    $emailInput: $form.querySelector('input[type="text"]'),
-    $passwordInput: $form.querySelector('input[type="password"]'),
-    $submitButton: $form.querySelector("#login-submitBtn"),
-  };
-
-  const showAlert = handleAlert(formElements.$submitButton);
-  showAlert("");
-
-  $form.addEventListener("submit", (event) =>
-    submitHandler(event, formElements, showAlert)
-  );
-
-  return $form;
-}
-
-const handleAlert = ($submitButton) => {
+const handleAlert = ($button) => {
   return (message) => {
     handleLoginAlert(message);
-    if ($submitButton) {
-      enableButton($submitButton);
+    if ($button) {
+      enableButton($button);
     }
   };
 };
+
+const showAlert = handleAlert(formElements.$submitButton);
+
+$loginForm.addEventListener("submit", (event) => {
+  submitHandler(event, formElements, showAlert);
+});
 
 async function submitHandler(event, formElements, showAlert) {
   const { $emailInput, $passwordInput, $submitButton } = formElements;

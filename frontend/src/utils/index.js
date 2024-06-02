@@ -21,12 +21,16 @@ export function formatDateToYMD(dateString) {
   return `${year}년 ${month}월 ${day}일`;
 }
 
-export function disableButton($submitButton) {
-  $submitButton.disabled = true;
-  $submitButton.classList.add("disabled");
+export function disableButton($button) {
+  $button.disabled = true;
+  $button.classList.add("disabled");
 }
 
-export function enableButton($submitButton) {
-  $submitButton.disabled = false;
-  $submitButton.classList.remove("disabled");
+export function enableButton($button) {
+  $button.disabled = false;
+  $button.classList.remove("disabled");
+}
+
+export function scrollToBottom($element) {
+  $element.scrollTop = $element.scrollHeight;
 }

@@ -22,12 +22,106 @@
         </div>
       </nav>
       <main>
-        <div class="chatting-container">
+        <div id="chattingView" class="chatting-container">
           <h2>게시판</h2>
           <div class="chatting-box">
             <div class="chatting-board"></div>
-            <div class="chatting-inputBox"></div>
+            <div class="chatting-inputBox">
+              <form class="chatting-form hidden">
+                <input
+                  type="text"
+                  placeholder="내용을 입력하세요"
+                  class="messageInput-input"
+                />
+                <input
+                  type="submit"
+                  value="전송"
+                  class="messageInput-button disabled"
+                  disabled
+                />
+              </form>
+              <div class="chatting-loginBtnBox hidden">
+                <span>채팅하기 위해 <strong>로그인</strong>해주세요</span>
+              </div>
+            </div>
           </div>
+        </div>
+        <div id="loginView" class="sign-wrapper hidden">
+          <div class="sign-box">
+            <h2>로그인</h2>
+            <form class="sign-form">
+              <input
+                class="sign-inputText"
+                type="text"
+                placeholder="example@email.com"
+              />
+              <input
+                class="sign-inputText"
+                type="password"
+                placeholder="비밀번호"
+                autocomplete="off"
+              />
+              <input
+                id="login-submitBtn"
+                class="sign-submitBtn"
+                type="submit"
+                value="로그인"
+              />
+            </form>
+            <p class="alert-text"></p>
+            <span class="sign-textBtn">계정이 없다면 회원가입</span>
+          </div>
+        </div>
+        <div id="signupView" class="sign-wrapper hidden">
+          <div class="sign-box">
+            <h2>회원가입</h2>
+            <form class="sign-form">
+              <input
+                id="email-input"
+                class="sign-inputText"
+                type="text"
+                placeholder="example@email.com"
+              />
+              <input
+                id="name-input"
+                class="sign-inputText"
+                type="text"
+                placeholder="이름"
+              />
+              <input
+                id="pw-input"
+                class="sign-inputText"
+                type="password"
+                placeholder="비밀번호"
+                autocomplete="off"
+              />
+              <input
+                id="pwConfirm-input"
+                class="sign-inputText"
+                type="password"
+                placeholder="비밀번호 확인"
+                autocomplete="off"
+              />
+              <input
+                id="signup-submitBtn"
+                class="sign-submitBtn"
+                type="submit"
+                value="회원가입"
+              />
+            </form>
+            <p class="alert-text"></p>
+            <span class="sign-textBtn">계정이 있다면 로그인</span>
+          </div>
+        </div>
+        <div id="signupCompleteView" class="signup-complete hidden">
+          <h5 class="signup-complete__title">회원가입 완료</h5>
+          <div class="signup-complete__box">
+            <p class="signup-complete__content">님의 회원가입이</p>
+            <p class="signup-complete__content">완료되었습니다.</p>
+          </div>
+          <button id="moveToLoginBtn" class="signup-complete__button">
+            로그인 하기
+          </button>
         </div>
       </main>
     </div>

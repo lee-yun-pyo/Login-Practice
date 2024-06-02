@@ -1,9 +1,6 @@
-const $signupAlertMessage = document.createElement("p");
-$signupAlertMessage.classList.add("alert-text");
+export function handleSignupAlert(message) {
+  const $signupAlertMessage = document.querySelector("#signupView .alert-text");
 
-function handleSignupAlert(message) {
-  $signupAlertMessage.style.display = message !== "" ? "block" : "none";
+  $signupAlertMessage.classList.toggle("hidden", message === "");
   $signupAlertMessage.innerText = message;
 }
-
-export { $signupAlertMessage, handleSignupAlert };
