@@ -6,6 +6,9 @@ import "./components/Sign/navigateSign.js";
 import "./components/Sign/login.js";
 import "./components/Sign/signup.js";
 
+import "./components/chat/toggleChatInput.js";
+import "./components/chat/chattingForm.js";
+
 import { initSessionExpiryCheck } from "./handler/sessionExpiryHandler.js";
 
 document.addEventListener("DOMContentLoaded", initSessionExpiryCheck);
