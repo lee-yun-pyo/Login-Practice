@@ -1,6 +1,3 @@
-import { store } from "../store";
-import { COMMENT_ACTIONS } from "../store/action";
-
 import { API_PATH } from "../constants";
 import { CommonError } from "../utils/CommonError";
 
@@ -14,7 +11,7 @@ export async function getCommentsHandler(pageNum) {
       throw new CommonError(message, response.status);
     }
 
-    store.dispatch(COMMENT_ACTIONS.set(comments));
+    return comments;
   } catch (error) {
     throw new Error(error.message);
   }
