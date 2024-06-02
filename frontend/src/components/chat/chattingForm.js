@@ -1,7 +1,7 @@
 import { store } from "../../store";
 import { COMMENT_ACTIONS } from "../../store/action";
 
-import { disableButton, enableButton } from "../../utils";
+import { disableButton, enableButton, scrollToBottom } from "../../utils";
 import { ROUTES } from "../../constants";
 import { navigate } from "../../routes";
 
@@ -58,6 +58,7 @@ const handleSubmitComment = async (content) => {
 
   const $tempCommentNode = createTempCommentNode(content);
   $chatBoard.appendChild($tempCommentNode);
+  scrollToBottom($chatBoard);
   try {
     const newComment = await createCommentHandler(content);
     store.dispatch(COMMENT_ACTIONS.add(newComment));

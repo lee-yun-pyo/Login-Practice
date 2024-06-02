@@ -36,7 +36,8 @@ async function getComments(req, res, next) {
     const comments = await Comment.find()
       .populate("creator")
       .skip((currentPage - 1) * perPage)
-      .limit(perPage);
+      .limit(perPage)
+      .sort({ createdAt: "desc" });
     res.status(200).json({
       message: "Fetched comments successfully",
       comments,

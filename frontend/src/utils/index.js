@@ -30,3 +30,7 @@ export function enableButton($button) {
   $button.disabled = false;
   $button.classList.remove("disabled");
 }
+
+export function scrollToBottom($element) {
+  $element.scrollTop = $element.scrollHeight;
+}

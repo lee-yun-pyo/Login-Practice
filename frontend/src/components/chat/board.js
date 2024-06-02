@@ -1,7 +1,7 @@
 import { store } from "../../store";
 import { COMMENT_ACTIONS } from "../../store/action";
 
-import { formatDateToAmPm, formatDateToYMD } from "../../utils";
+import { formatDateToAmPm, formatDateToYMD, scrollToBottom } from "../../utils";
 
 import { BoardError } from "./BoardError";
 import { SkeletonChat } from "./SkeletonChat";
@@ -86,7 +86,10 @@ async function render() {
       };
 
       let currentDate = "";
-      const commentsHTML = comments
+      const sortedByCreatedAtComments = comments.sort(
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      );
+      const commentsHTML = sortedByCreatedAtComments
         .map((comment) => {
           const formattedDate = formatDateToYMD(comment.createdAt);
           const dateHTML =
@@ -99,6 +102,7 @@ async function render() {
         .join("");
 
       $chatBoard.innerHTML = commentsHTML;
+      scrollToBottom($chatBoard);
 
       $chatBoard.addEventListener("mouseenter", handleCommentMouseEnter, true);
       $chatBoard.addEventListener("mouseleave", handleCommentMouseLeave, true);
