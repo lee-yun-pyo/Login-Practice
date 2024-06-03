@@ -18,6 +18,9 @@
     font-weight: 600;
 }
 
+.error-board__message {
+    text-align: center;
+}
 .error-board__refresh-button {
     background-color: #3182F6;
     color: #FFFFFF;

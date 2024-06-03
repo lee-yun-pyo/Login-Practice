@@ -196,3 +196,7 @@
         opacity: 0;
     }
 }
+
+#fetchMoreElement {
+    margin-bottom: -10px;
+}

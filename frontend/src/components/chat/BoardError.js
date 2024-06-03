@@ -5,7 +5,7 @@ export function BoardError(message) {
   $container.innerHTML = `
         <i class="fa-solid fa-triangle-exclamation fa-3x error-board__icon"></i>
         <p class="error-board__text">정보를 불러올 수 없어요</p>
-        <p>${message}</p>
+        <p class="error-board__message">${message}</p>
         <button class="error-board__refresh-button">다시 불러오기</button>
     `;
 

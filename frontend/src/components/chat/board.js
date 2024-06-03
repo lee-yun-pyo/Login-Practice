@@ -46,6 +46,9 @@ const handleCommentDelete = async ({ target }) => {
 
 async function render() {
   try {
+    const $fetchMoreElement = document.createElement("div");
+    $fetchMoreElement.id = "fetchMoreElement";
+
     $chatBoard.innerHTML = SkeletonChat(2).outerHTML;
 
     const comments = await getCommentsHandler(1);
@@ -101,7 +104,10 @@ async function render() {
         })
         .join("");
 
-      $chatBoard.innerHTML = commentsHTML;
+      $chatBoard.innerHTML = ""; // 스켈레톤 UI 제거
+      $chatBoard.appendChild($fetchMoreElement); // fetchMoreElement 추가
+      $fetchMoreElement.insertAdjacentHTML("afterend", commentsHTML); // 댓글 UI 출력
+
       scrollToBottom($chatBoard);
 
       $chatBoard.addEventListener("mouseenter", handleCommentMouseEnter, true);
