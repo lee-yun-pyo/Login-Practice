@@ -32,16 +32,26 @@ async function getComments(req, res, next) {
   try {
     const currentPage = parseInt(req.query.page) || 1;
     const perPage = 20;
-    const totalCount = await Comment.find().estimatedDocumentCount();
+    const totalCount = await Comment.estimatedDocumentCount();
     const comments = await Comment.find()
-      .populate("creator")
+      .populate({
+        path: "creator",
+        select: "_id name",
+      })
       .skip((currentPage - 1) * perPage)
       .limit(perPage)
       .sort({ createdAt: "desc" });
+
+    let nextOffset = null;
+    const leftCount = totalCount - perPage * currentPage;
+    if (leftCount > 0) {
+      nextOffset = currentPage + 1;
+    }
+
     res.status(200).json({
       message: "Fetched comments successfully",
       comments,
-      totalCount,
+      nextOffset,
     });
   } catch (error) {
     if (!error.statusCode) {
