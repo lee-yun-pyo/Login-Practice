@@ -10,6 +10,7 @@ import { showChatToast } from "./chatToast";
 import { createCommentHandler } from "../../handler/createCommentHandler";
 
 const $chatBoard = document.querySelector(".chatting-board");
+const $chattingComments = $chatBoard.querySelector(".chatting-comments");
 
 const $chatForm = document.querySelector(".chatting-form");
 const $chatInput = $chatForm.querySelector(".messageInput-input");
@@ -57,7 +58,7 @@ const handleSubmitComment = async (content) => {
   disableButton($chatButton);
 
   const $tempCommentNode = createTempCommentNode(content);
-  $chatBoard.appendChild($tempCommentNode);
+  $chattingComments.appendChild($tempCommentNode);
   scrollToBottom($chatBoard);
   try {
     const newComment = await createCommentHandler(content);
@@ -65,8 +66,8 @@ const handleSubmitComment = async (content) => {
   } catch (error) {
     showChatToast("에러가 발생했어요. 다시 시도해주세요", true);
   } finally {
-    if ($chatBoard.contains($tempCommentNode)) {
-      $chatBoard.removeChild($tempCommentNode);
+    if ($chattingComments.contains($tempCommentNode)) {
+      $chattingComments.removeChild($tempCommentNode);
     }
 
     disableButton($chatButton);
