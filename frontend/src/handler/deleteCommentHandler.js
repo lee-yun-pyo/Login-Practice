@@ -1,7 +1,9 @@
-import { handleLoginAlert } from "../components/Sign/LoginAlertMessage";
-import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { navigate } from "../routes";
+import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { CommonError } from "../utils/CommonError";
+
+import { handleLoginAlert } from "../components/Sign/alertMessage";
+
 import { logoutHandler } from "./logoutHandler";
 
 export async function deleteCommentHandler(commentId) {

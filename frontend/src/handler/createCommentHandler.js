@@ -3,7 +3,7 @@ import { CommonError } from "../utils/CommonError";
 import { logoutHandler } from "./logoutHandler";
 import { navigate } from "../routes/index";
 
-import { handleLoginAlert } from "../components/Sign/loginAlertMessage";
+import { handleLoginAlert } from "../components/Sign/alertMessage";
 
 export async function createCommentHandler(content) {
   try {

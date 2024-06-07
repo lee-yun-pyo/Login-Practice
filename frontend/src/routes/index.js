@@ -1,7 +1,9 @@
 import { ROUTES } from "../constants/index.js";
 
-import { handleLoginAlert } from "../components/Sign/loginAlertMessage.js";
-import { handleSignupAlert } from "../components/Sign/signupAlertMessage.js";
+import {
+  handleLoginAlert,
+  handleSignupAlert,
+} from "../components/Sign/alertMessage.js";
 
 export function navigate(requestedUrl) {
   const $main = document.querySelector("main");
