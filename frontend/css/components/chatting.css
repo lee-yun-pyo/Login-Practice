@@ -22,9 +22,14 @@
     padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
 
     overflow: auto;
+}
+
+.chatting-comments {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .chatting-board::-webkit-scrollbar {
@@ -195,4 +200,8 @@
     100% {
         opacity: 0;
     }
+}
+
+#fetchMoreElement {
+    margin-bottom: -10px;
 }
