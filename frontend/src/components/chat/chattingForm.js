@@ -61,8 +61,7 @@ const handleSubmitComment = async (content) => {
   $chattingComments.appendChild($tempCommentNode);
   scrollToBottom($chatBoard);
   try {
-    const newComment = await createCommentHandler(content);
-    store.dispatch(COMMENT_ACTIONS.add(newComment));
+    await createCommentHandler(content);
   } catch (error) {
     showChatToast("에러가 발생했어요. 다시 시도해주세요", true);
   } finally {
