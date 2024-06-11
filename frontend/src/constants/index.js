@@ -48,3 +48,5 @@ export const COMMENT_ACTION_TYPES = {
 
 export const ACCESS_TOKEN = "accessToken";
 export const REMAINING_EXPIRE_TIME = 60 * 60 * 1000; // 1hour
+
+export const DELETED_MESSAGE = "삭제된 메시지입니다.";

@@ -58,9 +58,12 @@ export function commentReducer(state = POST_INIT_STATE, action) {
     case COMMENT_ACTION_TYPES.DELETE_COMMENT:
       return {
         ...state,
-        comments: state.comments.filter(
-          (comment) => comment._id !== action.commentId
-        ),
+        comments: state.comments.map((comment) => {
+          if (comment._id === action.commentId) {
+            return { ...comment, content: null };
+          }
+          return comment;
+        }),
       };
     default:
       return state;

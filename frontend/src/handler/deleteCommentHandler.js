@@ -20,7 +20,7 @@ export async function deleteCommentHandler(commentId) {
       },
     });
 
-    const result = await response.json();
+    await response.json();
 
     if (!response.ok) {
       throw new CommonError(result.message, response.status);

@@ -34,7 +34,6 @@ const handleCommentDelete = async ({ target }) => {
   try {
     await deleteCommentHandler(commentId);
     store.dispatch(COMMENT_ACTIONS.delete(commentId));
-    showChatToast("댓글을 삭제했어요", false);
   } catch (error) {
     showChatToast(error.message, true);
     $createdAtSpan.innerText = createdAtSpanText;

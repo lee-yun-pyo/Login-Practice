@@ -2,6 +2,7 @@ import { store } from "../store";
 import { COMMENT_ACTIONS } from "../store/action";
 
 import { formatDateToAmPm, formatDateToYMD, scrollToBottom } from "./index";
+import { DELETED_MESSAGE } from "../constants";
 
 import { SkeletonChat } from "../components/chat/SkeletonChat";
 import { BoardError } from "../components/chat/BoardError";
@@ -50,6 +51,7 @@ function renderComments() {
     user: { userId },
     comment: { comments },
   } = store.getState();
+
   const $chattingComments = document.querySelector(".chatting-comments");
 
   const commentsHTML = getCommentsHTML(userId, comments);
@@ -97,7 +99,7 @@ function getCommentsHTML(userId, comments) {
             ${isSelf ? deleteBtn : ""}
             ${isSelf ? createdAtHTML : profileHTML}
             <div class="comment-box ${commentBoxClass}">
-              <p>${content}</p>
+              ${createMessageHTML(content)}
             </div>
             ${isSelf ? "" : createdAtHTML}
           </div>`;
@@ -120,4 +122,11 @@ function getCommentsHTML(userId, comments) {
     .join("");
 
   return commentsHTML;
+}
+
+function createMessageHTML(content) {
+  const messageClass = content === null ? "delete-message" : "";
+  const messageContent = content === null ? DELETED_MESSAGE : content;
+
+  return `<p class="${messageClass}">${messageContent}</p>`;
 }
