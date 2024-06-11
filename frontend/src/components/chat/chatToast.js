@@ -1,4 +1,4 @@
-const $chatBoard = document.querySelector(".chatting-board");
+const $chatInputBox = document.querySelector(".chatting-inputBox");
 
 const createToastMessage = (message, isError) => {
   const $container = document.createElement("div");
@@ -15,7 +15,7 @@ const hideAndRemoveToast = (toastMessage) => {
     toastMessage.classList.add("hide-chat__toast");
     toastMessage.addEventListener("animationend", (event) => {
       if (event.animationName === "hideToastMessage") {
-        $chatBoard.removeChild(toastMessage);
+        $chatInputBox.removeChild(toastMessage);
       }
     });
   }, 2000);
@@ -23,7 +23,7 @@ const hideAndRemoveToast = (toastMessage) => {
 
 export const showChatToast = (message, isError) => {
   const toastMessage = createToastMessage(message, isError);
-  $chatBoard.appendChild(toastMessage);
+  $chatInputBox.appendChild(toastMessage);
 
   hideAndRemoveToast(toastMessage);
 };

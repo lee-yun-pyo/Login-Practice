@@ -42,7 +42,7 @@
 }
 
 .chatting-inputBox {
-    position: absolute;
+    position: relative;
     width: 100%;
 }
 
@@ -168,7 +168,7 @@
     padding: 8px 12px;
     border-radius: 999px;
     position: absolute;
-    bottom: 5px;
+    top: -25px;
     left: 50%; 
     transform: translate(-50%, -50%);
     animation: showToastMessage 0.5s linear forwards;
