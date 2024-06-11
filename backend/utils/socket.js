@@ -17,3 +17,7 @@ export function getSocketIO() {
   }
   return io;
 }
+
+export function emitSocketEvent(event, type, data) {
+  getSocketIO().emit(event, { type, data });
+}

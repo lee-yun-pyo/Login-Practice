@@ -12,7 +12,7 @@ router.put(
   "/",
   isAuth,
   body("content").trim(),
-  commentController.uploadComment
+  commentController.createComment
 );
 
 // GET /comments?page=${pageNum}

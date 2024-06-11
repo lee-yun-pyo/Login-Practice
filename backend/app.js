@@ -1,10 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import { createServer } from "http";
-import { Server } from "socket.io";
 
 import authRoutes from "./routes/auth.js";
 import commentsRoutes from "./routes/comment.js";
+
+import { initSocketIO } from "./utils/socket.js";
 
 const app = express();
 
@@ -39,11 +40,7 @@ mongoose
   .then((result) => {
     const httpServer = createServer(app); // Correctly create HTTP server
 
-    const io = new Server(httpServer, {
-      cors: {
-        origin: "http://127.0.0.1:5500",
-      },
-    });
+    const io = initSocketIO(httpServer);
     httpServer.listen(8080, () => {
       console.log("http Server 연결");
     });
