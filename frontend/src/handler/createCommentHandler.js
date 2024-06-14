@@ -1,9 +1,11 @@
 import { ACCESS_TOKEN, API_PATH, ROUTES } from "../constants";
 import { CommonError } from "../utils/CommonError";
-import { logoutHandler } from "./logoutHandler";
+
 import { navigate } from "../routes/index";
 
 import { handleLoginAlert } from "../components/Sign/alertMessage";
+
+import { logoutHandler } from "./logoutHandler";
 
 export async function createCommentHandler(content) {
   try {
@@ -42,6 +44,10 @@ export async function createCommentHandler(content) {
         logoutHandler();
         navigate(ROUTES.LOGIN);
         handleLoginAlert(message);
+      } else if (statusCode === 500) {
+        throw new Error("서버에 문제가 발생했어요. \n 다시 시도해 주세요");
+      } else {
+        throw new Error(String(error));
       }
     } else {
       throw new Error(String(error));

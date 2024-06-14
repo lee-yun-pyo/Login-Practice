@@ -11,9 +11,20 @@ import { SOCKET_EVENT, SOCKET_TYPE } from "../constants/socket";
 export const socket = io(BASE_URL);
 const $chatBoard = document.querySelector(".chatting-board");
 
-socket.on(SOCKET_EVENT.COMMENT, ({ type, data }) => {
-  if (type === SOCKET_TYPE.CREATE) {
-    store.dispatch(COMMENT_ACTIONS.add(data));
-    scrollToBottom($chatBoard);
+export function socketEventListner({ type, data }) {
+  switch (type) {
+    case SOCKET_TYPE.CREATE:
+      store.dispatch(COMMENT_ACTIONS.add(data));
+      scrollToBottom($chatBoard);
+      break;
+    case SOCKET_TYPE.DELETE:
+      store.dispatch(COMMENT_ACTIONS.delete(data));
+      break;
   }
-});
+}
+
+export function socketEmit(event, type, data) {
+  socket.emit(event, { type, data });
+}
+
+socket.on(SOCKET_EVENT.COMMENT, socketEventListner);
