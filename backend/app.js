@@ -1,11 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
-import { createServer } from "http";
+import "dotenv/config";
 
 import authRoutes from "./routes/auth.js";
 import commentsRoutes from "./routes/comment.js";
 
-import { initSocketIO } from "./utils/socket.js";
+import { createHttpServer } from "./httpServer.js";
+
+import { initSocketIO } from "./socket/socket.js";
+import { handleSocketEvents } from "./socket/socketEvents.js";
 
 const app = express();
 
@@ -33,19 +36,16 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message, data });
 });
 
-mongoose
-  .connect(
-    "mongodb+srv://Leeyunpyo:leeyunpyoleeyunpyo@loginproject.5ej1nnl.mongodb.net/?retryWrites=true&w=majority&appName=LoginProject"
-  )
-  .then((result) => {
-    const httpServer = createServer(app); // Correctly create HTTP server
+async function startServer() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
 
+    const httpServer = createHttpServer(app);
     const io = initSocketIO(httpServer);
-    httpServer.listen(8080, () => {
-      console.log("http Server 연결");
-    });
-    io.on("connection", (socket) => {
-      console.log("socket 연결됨", socket.id);
-    });
-  })
-  .catch((error) => console.log(error));
+    handleSocketEvents(io);
+  } catch (error) {
+    console.error("서버 시작 중 오류 발생", error);
+  }
+}
+
+startServer();

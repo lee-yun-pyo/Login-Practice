@@ -1,9 +1,6 @@
 import Comment from "../model/comment.js";
 import User from "../model/user.js";
 
-import { SOCKET_EVENT, SOCKET_TYPE } from "../constants/index.js";
-import { emitSocketEvent } from "../utils/socket.js";
-
 // PUT /comments
 async function createComment(req, res, next) {
   try {
@@ -16,12 +13,6 @@ async function createComment(req, res, next) {
     const user = await User.findById(req.userId);
     user.comments.push(result._id);
     await user.save();
-
-    const emit_data = {
-      ...comment._doc,
-      creator: { _id: user._id, name: user.name },
-    };
-    emitSocketEvent(SOCKET_EVENT.COMMENT, SOCKET_TYPE.CREATE, emit_data);
 
     res.status(201).json({
       message: "created comment successfully",
