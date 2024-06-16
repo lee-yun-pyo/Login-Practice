@@ -1,5 +1,3 @@
-export const AUTHORIZATION = "authorization";
-
 export const SOCKET_EVENT = {
   COMMENT: "comments",
 };

@@ -2,7 +2,7 @@ import Comment from "../model/comment.js";
 import User from "../model/user.js";
 
 // PUT /comments
-async function uploadComment(req, res, next) {
+async function createComment(req, res, next) {
   try {
     const { content } = req.body;
     const comment = new Comment({
@@ -71,16 +71,10 @@ async function deleteComment(req, res, next) {
       error.statusCode = 404;
       throw error;
     }
-    const result = await Comment.findByIdAndDelete(commentId);
 
-    // 유저 데이터 댓글 삭제
-    const user = await User.findById(req.userId);
-    user.comments = user.comments.filter((id) => id.toString() !== commentId);
-    await user.save();
+    await Comment.findByIdAndUpdate(commentId, { content: null });
 
-    res
-      .status(200)
-      .json({ message: "comment was deleted successfully", result });
+    res.status(200).json({ message: "comment was deleted successfully" });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
@@ -89,4 +83,4 @@ async function deleteComment(req, res, next) {
   }
 }
 
-export default { uploadComment, getComments, deleteComment };
+export default { createComment, getComments, deleteComment };

@@ -3,7 +3,7 @@ import { disableButton, enableButton } from "../../utils";
 import { CommonError } from "../../utils/CommonError";
 import { ALERT_MESSAGE, emailRegex } from "../../constants";
 
-import { handleSignupAlert } from "./signupAlertMessage";
+import { handleSignupAlert } from "./alertMessage";
 
 import { signUpHandler } from "../../handler/signupHandler";
 

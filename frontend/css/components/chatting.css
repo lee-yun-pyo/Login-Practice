@@ -42,7 +42,7 @@
 }
 
 .chatting-inputBox {
-    position: absolute;
+    position: relative;
     width: 100%;
 }
 
@@ -139,7 +139,12 @@
 }
 
 .comment-box p {
-    font-size: 18px;
+    font-size: 16px;
+}
+
+.comment-box .delete-message {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.3)
 }
 
 .comment-box__self {
@@ -168,7 +173,7 @@
     padding: 8px 12px;
     border-radius: 999px;
     position: absolute;
-    bottom: 5px;
+    top: -25px;
     left: 50%; 
     transform: translate(-50%, -50%);
     animation: showToastMessage 0.5s linear forwards;

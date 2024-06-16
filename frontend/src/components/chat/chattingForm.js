@@ -1,5 +1,5 @@
-import { store } from "../../store";
-import { COMMENT_ACTIONS } from "../../store/action";
+import { socketEmit } from "../../utils/socket";
+import { SOCKET_EVENT, SOCKET_TYPE } from "../../constants/socket";
 
 import { disableButton, enableButton, scrollToBottom } from "../../utils";
 import { ROUTES } from "../../constants";
@@ -56,22 +56,20 @@ const handleSubmitComment = async (content) => {
   if (content === "") return;
 
   disableButton($chatButton);
+  clearInput($chatInput);
 
   const $tempCommentNode = createTempCommentNode(content);
   $chattingComments.appendChild($tempCommentNode);
   scrollToBottom($chatBoard);
   try {
     const newComment = await createCommentHandler(content);
-    store.dispatch(COMMENT_ACTIONS.add(newComment));
+    socketEmit(SOCKET_EVENT.COMMENT, SOCKET_TYPE.CREATE, newComment);
   } catch (error) {
-    showChatToast("에러가 발생했어요. 다시 시도해주세요", true);
+    showChatToast(error.message, true);
   } finally {
     if ($chattingComments.contains($tempCommentNode)) {
       $chattingComments.removeChild($tempCommentNode);
     }
-
-    disableButton($chatButton);
-    clearInput($chatInput);
   }
 };
 

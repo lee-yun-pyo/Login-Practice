@@ -1,5 +1,5 @@
-import { store } from "../../store";
-import { COMMENT_ACTIONS } from "../../store/action";
+import { socketEmit } from "../../utils/socket";
+import { SOCKET_EVENT, SOCKET_TYPE } from "../../constants/socket";
 
 import { showChatToast } from "./chatToast";
 
@@ -33,8 +33,7 @@ const handleCommentDelete = async ({ target }) => {
 
   try {
     await deleteCommentHandler(commentId);
-    store.dispatch(COMMENT_ACTIONS.delete(commentId));
-    showChatToast("댓글을 삭제했어요", false);
+    socketEmit(SOCKET_EVENT.COMMENT, SOCKET_TYPE.DELETE, commentId);
   } catch (error) {
     showChatToast(error.message, true);
     $createdAtSpan.innerText = createdAtSpanText;
