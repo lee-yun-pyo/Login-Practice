@@ -1,9 +1,10 @@
 import { socketEmit } from "../../utils/socket";
 import { SOCKET_EVENT, SOCKET_TYPE } from "../../constants/socket";
+import { API_PATH } from "../../constants";
 
 import { showChatToast } from "./chatToast";
 
-import { deleteCommentHandler } from "../../handler/deleteCommentHandler";
+import { authFetch } from "../../api/authFetch";
 
 const $chatBoard = document.querySelector(".chatting-board");
 
@@ -32,7 +33,7 @@ const handleCommentDelete = async ({ target }) => {
   $createdAtSpan.innerText = "삭제 중...";
 
   try {
-    await deleteCommentHandler(commentId);
+    await authFetch(API_PATH.deleteComment(commentId), "DELETE");
     socketEmit(SOCKET_EVENT.COMMENT, SOCKET_TYPE.DELETE, commentId);
   } catch (error) {
     showChatToast(error.message, true);

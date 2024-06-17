@@ -5,7 +5,10 @@ export async function getCommentsHandler(offset) {
   try {
     const response = await fetch(API_PATH.getComments(offset));
 
-    const { message, comments, nextOffset } = await response.json();
+    const {
+      message,
+      data: { comments, nextOffset },
+    } = await response.json();
 
     if (!response.ok) {
       throw new CommonError(message, response.status);

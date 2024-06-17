@@ -8,7 +8,7 @@ import "./components/Sign/login.js";
 import "./components/Sign/signup.js";
 
 import "./components/chat/toggleChatInput.js";
-import "./components/chat/chattingForm.js";
+import "./components/chat/chatForm.js";
 import "./components/chat/board.js";
 
 import "./utils/infiniteScroll.js";
