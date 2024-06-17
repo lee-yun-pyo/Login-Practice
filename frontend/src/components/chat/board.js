@@ -1,4 +1,5 @@
-import { socketEmit } from "../../utils/socket";
+import { socketEmit } from "../../socket/index";
+
 import { SOCKET_EVENT, SOCKET_TYPE } from "../../constants/socket";
 import { API_PATH } from "../../constants";
 

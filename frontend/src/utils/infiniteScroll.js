@@ -2,12 +2,12 @@ import { store } from "../store";
 import { COMMENT_ACTIONS } from "../store/action";
 
 import { formatDateToAmPm, formatDateToYMD, scrollToBottom } from "./index";
-import { DELETED_MESSAGE } from "../constants";
+import { API_PATH, DELETED_MESSAGE } from "../constants";
 
 import { SkeletonChat } from "../components/chat/SkeletonChat";
 import { BoardError } from "../components/chat/BoardError";
 
-import { getCommentsHandler } from "../handler/getCommentsHandler";
+import { infiniteFetch } from "../api/infiniteFetch";
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -63,8 +63,9 @@ async function loadComments(offset) {
     const {
       comment: { comments },
     } = store.getState();
-    const { comments: newComments, nextOffset } = await getCommentsHandler(
-      offset
+
+    const { comments: newComments, nextOffset } = await infiniteFetch(
+      API_PATH.getComments(offset)
     );
 
     store.dispatch(COMMENT_ACTIONS.set([...newComments, ...comments]));

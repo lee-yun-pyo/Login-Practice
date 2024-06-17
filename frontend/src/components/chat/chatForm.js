@@ -1,6 +1,7 @@
 import { navigate } from "../../routes";
 
-import { socketEmit } from "../../utils/socket";
+import { socketEmit } from "../../socket/index";
+
 import { disableButton, enableButton, scrollToBottom } from "../../utils";
 import { SOCKET_EVENT, SOCKET_TYPE } from "../../constants/socket";
 import { API_PATH, ROUTES } from "../../constants";

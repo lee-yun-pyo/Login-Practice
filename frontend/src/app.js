@@ -12,7 +12,7 @@ import "./components/chat/chatForm.js";
 import "./components/chat/board.js";
 
 import "./utils/infiniteScroll.js";
-import "./utils/socket.js";
+import "./socket/index.js";
 
 import { initSessionExpiryCheck } from "./handler/sessionExpiryHandler.js";
 
