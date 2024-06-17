@@ -1,11 +1,10 @@
 import * as authFunc from "../../utils/auth";
 import { disableButton, enableButton } from "../../utils";
-import { CommonError } from "../../utils/CommonError";
 import { ALERT_MESSAGE, emailRegex } from "../../constants";
 
 import { handleSignupAlert } from "./alertMessage";
 
-import { signUpHandler } from "../../handler/signupHandler";
+import { signupFetch } from "../../api/signupFetch";
 
 const $signupContainer = document.querySelector("#signupView");
 
@@ -84,19 +83,11 @@ async function submitHandler(event, formElements, showAlert) {
   }
 
   try {
-    const username = await signUpHandler(account);
+    const username = await signupFetch(account);
     showAlert("");
     moveToSignupComplete(username);
   } catch (error) {
-    if (error instanceof CommonError) {
-      const { statusCode, message } = error;
-      if (statusCode === 409) {
-        // 이메일 중복 에러 메시지 출력
-        showAlert(message);
-      }
-    } else {
-      showAlert("에러가 발생했어요. 다시 시도해주세요");
-    }
+    showAlert(error.message);
   }
 }
 
