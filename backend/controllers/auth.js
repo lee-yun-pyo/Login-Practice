@@ -32,7 +32,7 @@ export async function signUp(req, res, next) {
     const result = await user.save();
     res
       .status(201)
-      .json({ message: "created user successfully", username: result.name });
+      .json({ message: "created user successfully", data: result.name });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
@@ -62,9 +62,13 @@ export async function login(req, res, next) {
     const accessToken = createAccessToken(payload);
     const refreshToken = createRefreshToken(payload);
 
-    res
-      .status(200)
-      .json({ accessToken, userId: user._id.toString(), username: user.name });
+    const data = {
+      accessToken,
+      userId: user._id.toString(),
+      username: user.name,
+    };
+
+    res.status(200).json({ message: "login user successfully", data });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
