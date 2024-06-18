@@ -57,3 +57,5 @@ export function navigate(requestedUrl) {
   handleLoginAlert("");
   handleSignupAlert("");
 }
+
+window.addEventListener("popstate", () => navigate(window.location.pathname));

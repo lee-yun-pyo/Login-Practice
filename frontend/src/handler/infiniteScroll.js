@@ -1,7 +1,11 @@
 import { store } from "../store";
 import { COMMENT_ACTIONS } from "../store/action";
 
-import { formatDateToAmPm, formatDateToYMD, scrollToBottom } from "./index";
+import {
+  formatDateToAmPm,
+  formatDateToYMD,
+  scrollToBottom,
+} from "../utils/index";
 import { API_PATH, DELETED_MESSAGE } from "../constants";
 
 import { SkeletonChat } from "../components/chat/SkeletonChat";
@@ -9,9 +13,7 @@ import { BoardError } from "../components/chat/BoardError";
 
 import { infiniteFetch } from "../api/infiniteFetch";
 
-document.addEventListener("DOMContentLoaded", init);
-
-function init() {
+export function initInfiniteScroll() {
   const $chatBoard = document.querySelector(".chatting-board");
   const $fetchMoreElement = $chatBoard.querySelector("#fetchMoreElement");
   const $chattingComments = $chatBoard.querySelector(".chatting-comments");
