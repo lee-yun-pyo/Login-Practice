@@ -51,11 +51,11 @@
 }
 
 .modal_extend-btn {
-    background-color: #3182F6;
-    color: #FFFFFF;
+    background-color: var(--confirm-btn-bg-color);
+    color: var(--white-text-color);
 }
 
 .modal_logout-btn {
-    background-color: #f5dddc;
-    color: #E73F49;
+    background-color: var(--error-chat-toast-bg-color);
+    color: var(--error-chat-toast-text-color);
 }

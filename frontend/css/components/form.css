@@ -1,11 +1,10 @@
 .sign-wrapper {
-    width: 300px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     gap: 25px;
     padding: 30px;
     
-    border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 20px;
 }
 
@@ -31,12 +30,12 @@
 }
 
 .sign-submitBtn {
-    background-color: #3182F6;
+    background-color: var(--confirm-btn-bg-color);
     padding: 5px;
     border-radius: 6px;
     border: none;
 
-    color: #FFFFFF;
+    color: var(--white-text-color);
     font-size: 18px;
 }
 
@@ -48,11 +47,11 @@
 
 .sign-textBtn:hover {
     text-decoration: underline;
-    color: cornflowerblue;
+    color: var(--hover-text-color);
 }
 
 .alert-text {
     text-align: center;
     font-size: 14px;
-    color: #FF003E;
+    color: var(--alert-text-color);
 }

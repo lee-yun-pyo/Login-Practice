@@ -12,19 +12,19 @@
   </head>
   <body>
     <div id="app">
-      <nav class="nav-container">
-        <div class="nav-wrapper">
-          <h1 class="nav-title">Login Practice</h1>
-          <div class="nav-btnBox">
-            <span class="nav-username"></span>
-            <span class="nav-signBtn">로그인</span>
+      <header class="header-container">
+        <div class="header-wrapper">
+          <h1 class="header-title">Login Practice</h1>
+          <div class="header-btnBox">
+            <span class="header-username"></span>
+            <span class="header-signBtn">로그인</span>
           </div>
         </div>
-      </nav>
+      </header>
       <main>
-        <div id="chattingView" class="chatting-container">
-          <h2>게시판</h2>
-          <div class="chatting-box">
+        <article id="chattingView" class="chatting-container">
+          <h2>Chat</h2>
+          <section class="chatting-box">
             <div class="chatting-board">
               <div id="fetchMoreElement"></div>
               <div class="chatting-comments"></div>
@@ -47,8 +47,8 @@
                 <span>채팅하기 위해 <strong>로그인</strong>해주세요</span>
               </div>
             </div>
-          </div>
-        </div>
+          </section>
+        </article>
         <div id="loginView" class="sign-wrapper hidden">
           <div class="sign-box">
             <h2>로그인</h2>

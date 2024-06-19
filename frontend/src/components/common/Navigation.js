@@ -5,14 +5,14 @@ import { ROUTES } from "../../constants";
 
 import { logoutHandler } from "../../handler/logoutHandler";
 
-const $navigation = document.querySelector(".nav-container"),
-  $navTitle = $navigation.querySelector(".nav-title"),
-  $navUsername = $navigation.querySelector(".nav-username"),
-  $navSignButton = $navigation.querySelector(".nav-signBtn");
+const $header = document.querySelector(".header-container"),
+  $headerTitle = $header.querySelector(".header-title"),
+  $headerUsername = $header.querySelector(".header-username"),
+  $headerSignButton = $header.querySelector(".header-signBtn");
 
-$navTitle.addEventListener("click", () => navigate(ROUTES.HOME));
+$headerTitle.addEventListener("click", () => navigate(ROUTES.HOME));
 
-const handleNavSignButtonClick = (isLogin) => {
+const handleHeaderSignButtonClick = (isLogin) => {
   if (isLogin) {
     logoutHandler();
   } else {
@@ -25,14 +25,14 @@ const renderButtonBox = () => {
     user: { isLogin, username },
   } = store.getState();
 
-  $navUsername.innerText = isLogin ? `${username}님!` : "";
+  $headerUsername.innerText = isLogin ? `${username}님!` : "";
 
-  $navSignButton.innerText = isLogin ? "로그아웃" : "로그인";
-  $navSignButton.removeEventListener("click", () =>
-    handleNavSignButtonClick(isLogin)
+  $headerSignButton.innerText = isLogin ? "로그아웃" : "로그인";
+  $headerSignButton.removeEventListener("click", () =>
+    handleHeaderSignButtonClick(isLogin)
   );
-  $navSignButton.addEventListener("click", () =>
-    handleNavSignButtonClick(isLogin)
+  $headerSignButton.addEventListener("click", () =>
+    handleHeaderSignButtonClick(isLogin)
   );
 };
 
