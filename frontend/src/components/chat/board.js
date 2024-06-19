@@ -9,18 +9,28 @@ import { authFetch } from "../../api/authFetch";
 
 const $chatBoard = document.querySelector(".chatting-board");
 
+const isValidTarget = (target) => {
+  return (
+    !target.matches(".skeleton-chat__wrapper") &&
+    target.matches(".comment-wrapper__self") &&
+    !target.matches(".comment-wrapper__temp")
+  );
+};
+
 const handleCommentMouseEnter = ({ target }) => {
-  if (target.matches(".skeleton-chat__wrapper")) return;
-  if (!target.matches(".comment-wrapper__self")) return;
-  if (target.matches(".comment-wrapper__temp")) return;
-  target.querySelector(".comment-deleteBtn").classList.remove("hidden");
+  if (!isValidTarget(target)) return;
+  const $deleteBtn = target.querySelector(".comment-deleteBtn");
+  if (!$deleteBtn) return;
+
+  $deleteBtn.classList.remove("hidden");
 };
 
 const handleCommentMouseLeave = ({ target }) => {
-  if (target.matches(".skeleton-chat__wrapper")) return;
-  if (!target.matches(".comment-wrapper__self")) return;
-  if (target.matches(".comment-wrapper__temp")) return;
-  target.querySelector(".comment-deleteBtn").classList.add("hidden");
+  if (!isValidTarget(target)) return;
+  const $deleteBtn = target.querySelector(".comment-deleteBtn");
+  if (!$deleteBtn) return;
+
+  $deleteBtn.classList.add("hidden");
 };
 
 const handleCommentDelete = async ({ target }) => {
