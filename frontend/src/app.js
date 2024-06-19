@@ -1,3 +1,5 @@
+import "./socket/index.js";
+
 import "./components/common/Navigation.js";
 import "./components/common/Modal.js";
 
@@ -9,9 +11,8 @@ import "./components/chat/toggleChatInput.js";
 import "./components/chat/chatForm.js";
 import "./components/chat/board.js";
 
+import "./handler/scrollToBottomByBtn.js";
 import "./handler/infiniteScroll.js";
-import "./socket/index.js";
-
 import { initSessionExpiryCheck } from "./handler/sessionExpiryHandler.js";
 import { initInfiniteScroll } from "./handler/infiniteScroll.js";
 
