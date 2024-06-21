@@ -1,4 +1,4 @@
-import { navigate } from "../routes";
+import { updateRoute } from "../routes";
 
 import { ROUTES } from "../constants";
 
@@ -8,6 +8,6 @@ import { logoutHandler } from "../handler/logoutHandler";
 
 export function handle401Error(message) {
   logoutHandler();
-  navigate(ROUTES.LOGIN);
+  updateRoute(ROUTES.LOGIN);
   handleLoginAlert(message);
 }

@@ -1,6 +1,6 @@
 import { store } from "../../store";
 
-import { navigate } from "../../routes";
+import { updateRoute } from "../../routes";
 import { ROUTES } from "../../constants";
 
 import { logoutHandler } from "../../handler/logoutHandler";
@@ -10,13 +10,13 @@ const $header = document.querySelector(".header-container"),
   $headerUsername = $header.querySelector(".header-username"),
   $headerSignButton = $header.querySelector(".header-signBtn");
 
-$headerTitle.addEventListener("click", () => navigate(ROUTES.HOME));
+$headerTitle.addEventListener("click", () => updateRoute(ROUTES.HOME));
 
 const handleHeaderSignButtonClick = (isLogin) => {
   if (isLogin) {
     logoutHandler();
   } else {
-    navigate(ROUTES.LOGIN);
+    updateRoute(ROUTES.LOGIN);
   }
 };
 

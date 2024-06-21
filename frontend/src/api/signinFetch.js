@@ -1,7 +1,7 @@
 import { store } from "../store/index.js";
 import { USER_ACTIONS } from "../store/action.js";
 
-import { navigate } from "../routes";
+import { updateRoute } from "../routes";
 
 import {
   ACCESS_TOKEN,
@@ -39,7 +39,7 @@ export async function signinFetch(account) {
     store.dispatch(USER_ACTIONS.login(userId, username, expiryDate));
     handleSessionExpiry(REMAINING_EXPIRE_TIME);
 
-    navigate(ROUTES.HOME);
+    updateRoute(ROUTES.HOME);
   } catch (error) {
     if (error instanceof CommonError) {
       const { message, statusCode } = error;

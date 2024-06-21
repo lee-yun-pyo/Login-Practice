@@ -1,6 +1,6 @@
 import "./socket/index.js";
 
-import "./components/common/Navigation.js";
+import "./components/common/header.js";
 import "./components/common/Modal.js";
 
 import "./components/Sign/navigateSign.js";

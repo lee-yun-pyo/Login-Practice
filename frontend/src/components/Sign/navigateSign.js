@@ -1,12 +1,12 @@
 import { ROUTES } from "../../constants";
-import { navigate } from "../../routes";
+import { updateRoute } from "../../routes";
 
 const $loginContainer = document.querySelector("#loginView");
 const $signupContainer = document.querySelector("#signupView");
 const $signupComplete = document.querySelector("#signupCompleteView");
 
 const addNavigationListener = (button, route) => {
-  button.addEventListener("click", () => navigate(route));
+  button.addEventListener("click", () => updateRoute(route));
 };
 
 const setupNavigation = () => {

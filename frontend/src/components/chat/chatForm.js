@@ -1,4 +1,4 @@
-import { navigate } from "../../routes";
+import { updateRoute } from "../../routes";
 
 import { socketEmit } from "../../socket/index";
 
@@ -22,7 +22,7 @@ const $loginBtnBox = document.querySelector(".chatting-loginBtnBox");
 
 const handleLoginClick = ({ target }) => {
   if (target.closest("strong")) {
-    navigate(ROUTES.LOGIN);
+    updateRoute(ROUTES.LOGIN);
   }
 };
 
