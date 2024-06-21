@@ -16,8 +16,10 @@ async function createComment(req, res, next) {
 
     res.status(201).json({
       message: "created comment successfully",
-      comment,
-      creator: { userId: user._id, username: user.name },
+      data: {
+        ...comment._doc,
+        creator: { _id: user._id, name: user.name },
+      },
     });
   } catch (error) {
     if (!error.statusCode) {
@@ -50,8 +52,10 @@ async function getComments(req, res, next) {
 
     res.status(200).json({
       message: "Fetched comments successfully",
-      comments,
-      nextOffset,
+      data: {
+        comments,
+        nextOffset,
+      },
     });
   } catch (error) {
     if (!error.statusCode) {
@@ -74,7 +78,9 @@ async function deleteComment(req, res, next) {
 
     await Comment.findByIdAndUpdate(commentId, { content: null });
 
-    res.status(200).json({ message: "comment was deleted successfully" });
+    res
+      .status(200)
+      .json({ message: "comment was deleted successfully", data: commentId });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;

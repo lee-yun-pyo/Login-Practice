@@ -1,24 +1,36 @@
-import { socketEmit } from "../../utils/socket";
+import { socketEmit } from "../../socket/index";
+
 import { SOCKET_EVENT, SOCKET_TYPE } from "../../constants/socket";
+import { API_PATH } from "../../constants";
 
 import { showChatToast } from "./chatToast";
 
-import { deleteCommentHandler } from "../../handler/deleteCommentHandler";
+import { authFetch } from "../../api/authFetch";
 
 const $chatBoard = document.querySelector(".chatting-board");
 
+const isValidTarget = (target) => {
+  return (
+    !target.matches(".skeleton-chat__wrapper") &&
+    target.matches(".comment-wrapper__self") &&
+    !target.matches(".comment-wrapper__temp")
+  );
+};
+
 const handleCommentMouseEnter = ({ target }) => {
-  if (target.matches(".skeleton-chat__wrapper")) return;
-  if (!target.matches(".comment-wrapper__self")) return;
-  if (target.matches(".comment-wrapper__temp")) return;
-  target.querySelector(".comment-deleteBtn").classList.remove("hidden");
+  if (!isValidTarget(target)) return;
+  const $deleteBtn = target.querySelector(".comment-deleteBtn");
+  if (!$deleteBtn) return;
+
+  $deleteBtn.classList.remove("hidden");
 };
 
 const handleCommentMouseLeave = ({ target }) => {
-  if (target.matches(".skeleton-chat__wrapper")) return;
-  if (!target.matches(".comment-wrapper__self")) return;
-  if (target.matches(".comment-wrapper__temp")) return;
-  target.querySelector(".comment-deleteBtn").classList.add("hidden");
+  if (!isValidTarget(target)) return;
+  const $deleteBtn = target.querySelector(".comment-deleteBtn");
+  if (!$deleteBtn) return;
+
+  $deleteBtn.classList.add("hidden");
 };
 
 const handleCommentDelete = async ({ target }) => {
@@ -32,7 +44,7 @@ const handleCommentDelete = async ({ target }) => {
   $createdAtSpan.innerText = "삭제 중...";
 
   try {
-    await deleteCommentHandler(commentId);
+    await authFetch(API_PATH.deleteComment(commentId), "DELETE");
     socketEmit(SOCKET_EVENT.COMMENT, SOCKET_TYPE.DELETE, commentId);
   } catch (error) {
     showChatToast(error.message, true);

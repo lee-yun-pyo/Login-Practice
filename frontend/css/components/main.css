@@ -1,6 +1,34 @@
-@import url(./nav.css);
+@import url(./header.css);
 @import url(./form.css);
 @import url(./chatting.css);
 @import url(./modal.css);
 @import url(./skeleton.css);
 @import url(./error.css);
+@import url(./signup-complete.css);
+
+:root {
+    --main-bg-color: #f3f3f3;
+    --header-bg-color: #ACBFCE;
+
+    --chat-bg-color: #ACBFCE;
+    --comment-profile-bg-color: #fafafa;
+    --comment-profile-text: #808080;
+    --comment-self-bg-color: #FFEB33;
+    --comment-other-bg-color: #F6F6F6;
+
+    --chat-btn-bg-color: #484747;
+    --chat-loninBtn-bg-color: #ECECEC;
+
+    --alert-text-color: #FF003E;
+    --hover-text-color: #6495ed;
+
+    --error-board-icon-bg-color: #dd7e25;
+    --error-chat-toast-bg-color: #f5dddc;
+    --error-chat-toast-text-color: #E73F49;
+
+    --plain-chat-toast-bg-color: #ccf5e5;
+    --plain-chat-toast-text-color: #01A262;
+
+    --white-text-color: #FFFFFF;
+    --confirm-btn-bg-color: #3182F6;
+}

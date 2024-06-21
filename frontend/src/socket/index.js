@@ -3,10 +3,9 @@ import { io } from "socket.io-client";
 import { store } from "../store";
 import { COMMENT_ACTIONS } from "../store/action";
 
-import { scrollToBottom } from "./index";
-
 import { BASE_URL } from "../constants";
 import { SOCKET_EVENT, SOCKET_TYPE } from "../constants/socket";
+import { scrollToBottom } from "../utils/index";
 
 export const socket = io(BASE_URL);
 const $chatBoard = document.querySelector(".chatting-board");

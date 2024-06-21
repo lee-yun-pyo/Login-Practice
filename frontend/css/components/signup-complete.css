@@ -23,7 +23,7 @@
 
 .signup-complete__button {
     width: 100%;
-    background-color: #6054FF;
+    background-color: var(--confirm-btn-bg-color);
     color: #ffffff;
     padding: 10px 0;
     border-radius: 8px;

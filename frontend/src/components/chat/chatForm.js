@@ -1,13 +1,15 @@
-import { socketEmit } from "../../utils/socket";
-import { SOCKET_EVENT, SOCKET_TYPE } from "../../constants/socket";
+import { navigate } from "../../routes";
+
+import { socketEmit } from "../../socket/index";
 
 import { disableButton, enableButton, scrollToBottom } from "../../utils";
-import { ROUTES } from "../../constants";
-import { navigate } from "../../routes";
+import { SOCKET_EVENT, SOCKET_TYPE } from "../../constants/socket";
+import { API_PATH, ROUTES } from "../../constants";
 
 import { showChatToast } from "./chatToast";
 
-import { createCommentHandler } from "../../handler/createCommentHandler";
+import { authFetch } from "../../api/authFetch";
+import { store } from "../../store";
 
 const $chatBoard = document.querySelector(".chatting-board");
 const $chattingComments = $chatBoard.querySelector(".chatting-comments");
@@ -37,14 +39,25 @@ const clearInput = ($input) => {
 };
 
 const createTempCommentNode = (content) => {
+  const {
+    comment: { comments },
+    user: { userId },
+  } = store.getState();
+
   const $newComment = document.createElement("div");
   $newComment.classList.add("comment-wrapper");
   $newComment.classList.add("comment-wrapper__temp");
   $newComment.classList.add("comment-wrapper__self");
 
+  const lastCommentCreatorId =
+    comments.length > 0 ? comments[comments.length - 1].creator._id : null;
+  const isSameUserWithLastComment = lastCommentCreatorId === userId;
+
   $newComment.innerHTML = `
         <span class="comment-createdAt">전송 중!</span>
-        <div class="comment-box comment-box__self">
+        <div class="comment-box comment-box__self ${
+          isSameUserWithLastComment ? "comment-box__sameUser" : ""
+        }">
           <p>${content}</p>
         </div>
     `;
@@ -62,14 +75,14 @@ const handleSubmitComment = async (content) => {
   $chattingComments.appendChild($tempCommentNode);
   scrollToBottom($chatBoard);
   try {
-    const newComment = await createCommentHandler(content);
+    const newComment = await authFetch(
+      API_PATH.createComment(),
+      "PUT",
+      content
+    );
     socketEmit(SOCKET_EVENT.COMMENT, SOCKET_TYPE.CREATE, newComment);
   } catch (error) {
     showChatToast(error.message, true);
-  } finally {
-    if ($chattingComments.contains($tempCommentNode)) {
-      $chattingComments.removeChild($tempCommentNode);
-    }
   }
 };
 
