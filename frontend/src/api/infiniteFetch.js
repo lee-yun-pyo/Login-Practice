@@ -1,9 +1,11 @@
-import { ERROR_MESSAGE } from "../constants";
+import { ABORT_TIMEOUT_TIME, ERROR_MESSAGE } from "../constants";
 import { CommonError } from "../utils/CommonError";
 
 export async function infiniteFetch(apiPath) {
   try {
-    const response = await fetch(apiPath);
+    const response = await fetch(apiPath, {
+      signal: AbortSignal.timeout(ABORT_TIMEOUT_TIME),
+    });
 
     const { message, data } = await response.json();
 

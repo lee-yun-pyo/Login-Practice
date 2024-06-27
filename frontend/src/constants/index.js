@@ -55,3 +55,5 @@ export const ERROR_MESSAGE = {
   SERVER_ERROR: "서버에 문제가 발생했어요. \n 다시 시도해 주세요",
   LOGIN_REQUIRED: "로그인 먼저 해주세요.",
 };
+
+export const ABORT_TIMEOUT_TIME = 10_000;
