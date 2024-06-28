@@ -58,7 +58,7 @@ https://github.com/lee-yun-pyo/Login-Practice/assets/41375597/60c55d5a-e24f-49b3
 ## 💡 새로 배운 것들
 
 - 리덕스를 사용하여 상태관리를 진행하면서 Flux 패턴에 대해 공부해 봄.
-    - [Flux 패턴 - 정리 블로그](https://velog.io/@lee-yun-pyo/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%90%EC%84%9C-MVC-%ED%8C%A8%ED%84%B4%EA%B3%BC-Flux-%ED%8C%A8%ED%84%B4)
+    - <a href="https://velog.io/@lee-yun-pyo/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%90%EC%84%9C-MVC-%ED%8C%A8%ED%84%B4%EA%B3%BC-Flux-%ED%8C%A8%ED%84%B4" target="_blank">Flux 패턴 - 정리 블로그</a>
 - `History API` 를 통해 라우팅 라이브러리가 아닌 자바스크립트를 이용하여 URL 라우팅을 하는 법을 알게 됨.
-    - [History API - 정리 블로그](https://velog.io/@lee-yun-pyo/Histroy-API)
-    - [Histroy API 로 SPA 구현](https://velog.io/@lee-yun-pyo/History-API-%EB%A1%9C-SPA-%EA%B5%AC%ED%98%84)
+    - <a href="https://velog.io/@lee-yun-pyo/Histroy-API" target="_blank">History API - 정리 블로그</a>
+    - <a href="https://velog.io/@lee-yun-pyo/History-API-%EB%A1%9C-SPA-%EA%B5%AC%ED%98%84" target="_blank">Histroy API 로 SPA 구현</a>
